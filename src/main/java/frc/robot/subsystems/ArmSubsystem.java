@@ -30,6 +30,11 @@ public class ArmSubsystem extends SubsystemBase {
         public static final InvertedValue ARM_INVERSION = InvertedValue.CounterClockwise_Positive;
         public static final NeutralModeValue ARM_NEUTRAL_MODE = NeutralModeValue.Brake;
 
+        public static final double ARM_POSITION_STATUS_FRAME = 0.04;
+        public static final double ARM_VELOCITY_STATUS_FRAME = 0.01;
+        public static final double ARM_HANDOFF_POSITION = 0.5;
+        public static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
+
     }
 
     public Angle getEnc() {
