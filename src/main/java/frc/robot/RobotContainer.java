@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.limelite.vision;
 
 
 /**
@@ -28,6 +29,7 @@ public class RobotContainer {
     public RobotContainer() {
         xboxController = new XboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
+        updateLimeLightStatus();
     }
 
 
@@ -52,4 +54,10 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return null;
     }
+
+    private void updateLimeLightStatus(){
+        boolean isTargetDetected = vision.isTarget();
+        vision.updateLedMode(isTargetDetected);
+    }
 }
+

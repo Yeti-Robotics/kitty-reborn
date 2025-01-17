@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.subsystems.limelite;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -9,7 +9,7 @@ public class vision {
 
      //Light modes for Limelight.
     public static enum LightMode {
-        eOn, eOff, eBlink
+        eOff, eBlink
     }
 
     //Camera modes for Limelight.
@@ -77,10 +77,8 @@ public class vision {
         return table.getTable("limelight").getEntry(key);
     }
 
-    public static void updateLedMode(boolean isTargetDetected, boolean isInAutoMode) {
-        if (isInAutoMode) {
-            setLedMode(LightMode.eOn);
-        } else if (isTargetDetected) {
+    public static void updateLedMode(boolean isTargetDetected) {
+        if (isTargetDetected) {
             setLedMode(LightMode.eBlink);
         } else {
             setLedMode(LightMode.eOff);
