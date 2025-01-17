@@ -34,6 +34,7 @@ public class ArmSubsystem extends SubsystemBase {
         public static final double ARM_VELOCITY_STATUS_FRAME = 0.01;
         public static final double ARM_HANDOFF_POSITION = 0.5;
         public static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
+        public static final double ARM_DEPLOY_LOWER_BOUND = 0;
 
     }
 
