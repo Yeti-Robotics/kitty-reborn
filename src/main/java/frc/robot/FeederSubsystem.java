@@ -17,7 +17,7 @@ public class FeederSubsystem extends SubsystemBase {
 
     //Beam Break Sensor Config
     private static final int BEAM_BREAK_SENSOR_PORT = 2;
-    private final DigitalInput beamBreakSensor;
+//    private final DigitalInput beamBreakSensor;
 
     public static FeederSubsystem getInstance() {
         return INSTANCE;
@@ -26,7 +26,7 @@ public class FeederSubsystem extends SubsystemBase {
     private FeederSubsystem() {
         //References the motor and sensor as objects - "TalonFX & DigitalInput"
         feederMotor = new TalonFX(FEEDER_MOTOR_CAN_ID);
-        beamBreakSensor = new DigitalInput(BEAM_BREAK_SENSOR_PORT);
+//        beamBreakSensor = new DigitalInput(BEAM_BREAK_SENSOR_PORT);
     }
 
     private void setFeederSpeed(double speed) {
@@ -43,6 +43,6 @@ public class FeederSubsystem extends SubsystemBase {
 
     // Run the feeder for 3 seconds
     public Command runFeederCommand(double speed) {
-        return run(() -> setFeederSpeed(speed)).withTimeout(3);
+        return run(() -> setFeederSpeed(speed));
     }
 }

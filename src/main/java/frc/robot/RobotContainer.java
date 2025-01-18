@@ -21,7 +21,7 @@ public class RobotContainer {
 
     private void configureBindings() {
         // Sets the button of the feeder to be A
-        xboxController.a().onTrue(feederSubsystem.runFeederCommand(1));
+        xboxController.a().whileTrue(feederSubsystem.runFeederCommand(1));
     }
 
     public Command getAutonomousCommand() {
