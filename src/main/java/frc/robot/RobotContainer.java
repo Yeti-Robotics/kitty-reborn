@@ -5,13 +5,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.limelite.vision;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import java.util.function.BooleanSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,6 +23,7 @@ import frc.robot.subsystems.limelite.vision;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+    private final Joystick driverJoystick = new Joystick(0);
 
     XboxController xboxController;
 
@@ -29,21 +33,22 @@ public class RobotContainer {
     public RobotContainer() {
         xboxController = new XboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
-        updateLimeLightStatus();
     }
 
 
     /**
      * Use this method to define your trigger->command mappings. Triggers can be created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+     * {@link Trigger#Trigger(BooleanSupplier)} constructor with an arbitrary
      * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+     * CommandGenericHID}'s subclasses for {@link
+     * CommandXboxController Xbox}/{@link CommandPS4Controller
+     * PS4} controllers or {@link CommandJoystick Flight
      * joysticks}.
      */
     private void configureBindings() {
+        new JoystickButton(driverJoystick, 1).onTrue(new InstantCommand(this::updateLimeLightStatus));
 
+        new JoystickButton(driverJoystick, 2).onTrue(new InstantCommand(this::adjustPositionOfCrosshair));
     }
 
     /**
@@ -58,6 +63,26 @@ public class RobotContainer {
     private void updateLimeLightStatus(){
         boolean isTargetDetected = vision.isTarget();
         vision.updateLedMode(isTargetDetected);
+    }
+
+    private void adjustPositionOfCrosshair(){
+        double tx = vision.getTx();
+        double ty = vision.getTy();
+
+        if (Math.abs(tx) > 1.00){
+            System.out.println("Crosshair IS NOT aligned horizontally by [ " + tx + " ]");
+        }
+        else{
+            System.out.println("Crosshair IS aligned horizontally by [ " + tx + " ]");
+        }
+
+        if (Math.abs(ty) > 1.00){
+            System.out.println("Crosshair IS NOT aligned vertically by [ " + ty + " ]");
+        }
+        else{
+            System.out.println("Crosshair IS aligned horizontally by [ " + ty + " ]");
+        }
+
     }
 }
 
