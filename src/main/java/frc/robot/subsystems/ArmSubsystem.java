@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+//Import
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -24,8 +25,8 @@ public class ArmSubsystem extends SubsystemBase {
         var talonFXConfiguration = new TalonFXConfiguration();
     }
 
-    public Angle getEnc() {
-        return armEncoder.getAbsolutePosition().getValue();
+    public double getEnc() {
+        return armEncoder.getAbsolutePosition().getValue().magnitude();
     }
 
     private void moveUp(double speed) {
