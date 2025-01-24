@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
+import static frc.robot.subsystems.ArmSubsystemConfig.canconderconfigs;
+import static frc.robot.subsystems.ArmSubsystemConfig.talonfxconfigs;
+
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -20,8 +23,8 @@ public class ArmSubsystem extends SubsystemBase {
         armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_NAME);
         armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_NAME);
 
-        var armConfigurator = armKraken.getConfigurator();
-        var talonFXConfiguration = new TalonFXConfiguration();
+        armKraken.getConfigurator().apply(talonfxconfigs);
+        armEncoder.getConfigurator().apply(canconderconfigs);
     }
 
     public double getEnc() {
