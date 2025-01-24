@@ -24,11 +24,6 @@ public class ArmSubsystem extends SubsystemBase {
         var talonFXConfiguration = new TalonFXConfiguration();
     }
 
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("Arm encoder: ", armEncoder.getAbsolutePosition().getValue());
-    }
-
     public Angle getEnc() {
         return armEncoder.getAbsolutePosition().getValue();
     }
