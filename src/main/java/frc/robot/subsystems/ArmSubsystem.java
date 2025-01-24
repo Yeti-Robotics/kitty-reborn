@@ -8,7 +8,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 
 
 public class ArmSubsystem extends SubsystemBase {
@@ -17,26 +17,11 @@ public class ArmSubsystem extends SubsystemBase {
     private final CANcoder armEncoder;
     //Constructor
     public ArmSubsystem() {
-        armKraken = new TalonFX(ArmConstants.ARM_KRAKEN_ID, Constants.TalonFXConstants.CANIVORE_NAME);
-        armEncoder = new CANcoder(ArmConstants.ARM_CANCODER_ID, Constants.TalonFXConstants.CANIVORE_NAME);
+        armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_NAME);
+        armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_NAME);
 
         var armConfigurator = armKraken.getConfigurator();
         var talonFXConfiguration = new TalonFXConfiguration();
-    }
-
-    public static class ArmConstants {
-        public static final int ARM_KRAKEN_ID = 21;
-        public static final int ARM_CANCODER_ID = 5;
-
-        public static final InvertedValue ARM_INVERSION = InvertedValue.CounterClockwise_Positive;
-        public static final NeutralModeValue ARM_NEUTRAL_MODE = NeutralModeValue.Brake;
-
-        public static final double ARM_POSITION_STATUS_FRAME = 0.04;
-        public static final double ARM_VELOCITY_STATUS_FRAME = 0.01;
-        public static final double ARM_HANDOFF_POSITION = 0.5;
-        public static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
-        public static final double ARM_DEPLOY_LOWER_BOUND = 0;
-
     }
 
     @Override
@@ -65,7 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public Command deployArm(double speed){
-        return moveDownAndStop(speed).until(() -> getEnc() <= ArmConstants.ARM_DEPLOY_UPPER_BOUND && getEnc() >= ArmConstants.ARM_DEPLOY_LOWER_BOUND);
+        return moveDownAndStop(speed).until(() -> getEnc() <= ArmSubsystemConfig.ARM_DEPLOY_UPPER_BOUND && getEnc() >= ArmSubsystemConfig.ARM_DEPLOY_LOWER_BOUND);
     }
 
     private void stop() {
