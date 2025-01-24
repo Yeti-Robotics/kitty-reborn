@@ -1,4 +1,3 @@
-//Package
 package frc.robot.subsystems;
 
 //Imports
@@ -13,7 +12,6 @@ import frc.robot.constants.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
 
-    //Motors
     private final TalonFX armKraken;
     private final CANcoder armEncoder;
 
@@ -26,7 +24,6 @@ public class ArmSubsystem extends SubsystemBase {
         var talonFXConfiguration = new TalonFXConfiguration();
     }
 
-    //Get Encoder Values
     public double getEnc() {
         return armEncoder.getAbsolutePosition().getValue().magnitude();
     }
@@ -56,7 +53,6 @@ public class ArmSubsystem extends SubsystemBase {
         return moveDownAndStop(speed).until(() -> getEnc() <= ArmSubsystemConfig.ARM_DEPLOY_UPPER_BOUND && getEnc() >= ArmSubsystemConfig.ARM_DEPLOY_LOWER_BOUND);
     }
 
-    //Stop Moving
     private void stop() {
         armKraken.stopMotor();
     }
