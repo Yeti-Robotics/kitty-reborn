@@ -21,9 +21,11 @@ public class ArmSubsystemConfig {
     static final double ARM_HANDOFF_POSITION = 0.5;
     static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
     static final double ARM_DEPLOY_LOWER_BOUND = 0;
+    static final double P_VALUE = 0;
+    static final double I_value = 0;
+
+
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
     static final TalonFXConfiguration talonfxconfigs = new TalonFXConfiguration();
-
-    final MotionMagicVelocityVoltage Armrequest = new MotionMagicVelocityVoltage(0);
 }
