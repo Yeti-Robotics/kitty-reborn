@@ -28,9 +28,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-
-
-
     public double getEnc() {
         return armEncoder.getAbsolutePosition().getValue().magnitude();
     }
