@@ -1,87 +1,35 @@
 package frc.robot.subsystems.limelite;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.limelite.LimelightHelpers;
+import frc.robot.subsystems.limelite.LimelightHelpers.LimelightResults;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
-public class vision {
-    private static NetworkTableInstance table = null;
-
-
-     //Light modes for Limelight.
-    public static enum LightMode {
-        eOff, eBlink
-    }
-
-    //Camera modes for Limelight.
-    public static enum CameraMode {
-        eVision, eDriver
-    }
-
-    //is there a target in the area
-    public static boolean isTarget() {
-        return getValue("tv").getDouble(0) == 1;
-    }
-
-    //Horizontal offset from crosshair to target
-    public static double getTx() {
-        return getValue("tx").getDouble(0.00);
-    }
-
-    //Vertical offset from crosshair to target
-    public static double getTy() {
-        return getValue("ty").getDouble(0.00);
-    }
-
-    //Area that the detected target takes up in total camera FOV
-    public static double getTa() {
-        return getValue("ta").getDouble(0.00);
-    }
-
-    //Gets target skew or rotation
-    public static double getTs() {
-        return getValue("ts").getDouble(0.00);
-    }
-
-    //Gets target latency (ms)
-    public static double getTl() {
-        return getValue("tl").getDouble(0.00);
-    }
-
-    //Sets LED mode of Limelight.
-    public static void setLedMode(LightMode mode) {
-        getValue("ledMode").setNumber(mode.ordinal());
-    }
-
-    //Sets camera mode for Limelight.
-    public static void setCameraMode(CameraMode mode) {
-        getValue("camMode").setNumber(mode.ordinal());
-    }
-
-    //Sets pipeline number
-    public static void setPipeline(int number) {
-        getValue("pipeline").setNumber(number);
-    }
-
+public class Vision {
     public static void main(String[] args) {
-        // Set the LED mode to blink
-        setLedMode(LightMode.eBlink);
-        System.out.println("Limelight LEDs should now be blinking.");
-    }
+        // Fetch the latest results from the Limelight
+        LimelightResults results = LimelightHelpers.getLatestResults("limelight");
 
-    //Helper method to get an entry from the Limelight NetworkTable.
-    private static NetworkTableEntry getValue(String key) {
-        if (table == null) {
-            table = NetworkTableInstance.getDefault();
-        }
+        // Check the number of detected April Tags
+        int numAprilTags = results.targets_Fiducials.length;
+        System.out.println("Number of April Tags detected: " + numAprilTags);
 
-        return table.getTable("limelight").getEntry(key);
-    }
+        if (numAprilTags > 0) {
+            // Assuming we are interested in the first detected April Tag
+            LimelightHelpers.LimelightTarget_Fiducial target = results.targets_Fiducials[0];
 
-    public static void updateLedMode(boolean isTargetDetected) {
-        if (isTargetDetected) {
-            setLedMode(LightMode.eBlink);
+            // Extract and print the pose and other relevant data
+            System.out.println("April Tag ID: " + target.fiducialID);
+            System.out.println("Pose (Field Space): " + target.getRobotPose_FieldSpace2D());
+            System.out.println("Target Area: " + target.ta);
+            System.out.println("Horizontal Offset: " + target.tx);
+            System.out.println("Vertical Offset: " + target.ty);
         } else {
-            setLedMode(LightMode.eOff);
+            System.out.println("No April Tags detected.");
         }
     }
 }

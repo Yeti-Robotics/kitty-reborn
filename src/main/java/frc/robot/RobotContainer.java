@@ -46,9 +46,9 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        new JoystickButton(driverJoystick, 1).onTrue(new InstantCommand(this::updateLimeLightStatus));
+        new JoystickButton(driverJoystick, XboxController.Button.kA.value).onTrue(new InstantCommand(this::updateLimeLightStatus));
 
-        new JoystickButton(driverJoystick, 2).onTrue(new InstantCommand(this::adjustPositionOfCrosshair));
+        new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(new InstantCommand(this::adjustPositionOfCrosshair));
     }
 
     /**

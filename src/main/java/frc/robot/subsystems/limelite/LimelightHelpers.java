@@ -28,6 +28,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wpi.first.wpilibj.Joystick;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -407,6 +409,7 @@ public class LimelightHelpers {
 
         @JsonProperty("t6c_rs")
         public double[] camerapose_robotspace;
+        public LimelightResults results;
 
         public Pose3d getBotPose3d() {
             return toPose3D(botpose);
@@ -461,6 +464,8 @@ public class LimelightHelpers {
         }
 
 
+        public Joystick getBestTarget() {
+        }
     }
 
     /**
