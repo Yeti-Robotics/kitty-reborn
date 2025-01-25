@@ -1,13 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.*;
-import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.hardware.CANcoder;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.*;
 
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
@@ -16,22 +9,25 @@ public class ArmSubsystemConfig {
     static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
     static final double ARM_DEPLOY_LOWER_BOUND = 0;
     static final double P_VALUE = 0;
-    static final double I_value = 0;
-    static final double D_value = 0;
+    static final double I_VALUE = 0;
+    static final double D_VALUE = 0;
+    static final double A_VALUE = 0;
+    static final double G_VALUE = 0;
+    static final double S_VALUE = 0;
+    static final double V_VALUE = 0;
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
-            .withKA(0)
-            .withKD(D_value)
-            .withKG(0)
-            .withKI(I_value)
+            .withKA(A_VALUE)
+            .withKD(D_VALUE)
+            .withKG(G_VALUE)
+            .withKI(I_VALUE)
             .withKP(P_VALUE)
-            .withKS(0)
-            .withKV(0);
+            .withKS(S_VALUE)
+            .withKV(V_VALUE);
 
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicJerk(0)
-            .withMotionMagicAcceleration(0)
-            .withMotionMagicExpo_kA(0);
+            .withMotionMagicAcceleration(0);
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
     static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration().withSlot0(slot0Configs).withMotionMagic(motionMagicConfigs);
