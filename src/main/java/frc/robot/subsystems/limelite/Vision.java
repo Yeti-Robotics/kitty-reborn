@@ -1,36 +1,41 @@
 package frc.robot.subsystems.limelite;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.limelite.LimelightHelpers;
-import frc.robot.subsystems.limelite.LimelightHelpers.LimelightResults;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class Vision {
-    public static void main(String[] args) {
-        // Fetch the latest results from the Limelight
-        LimelightResults results = LimelightHelpers.getLatestResults("limelight");
 
-        // Check the number of detected April Tags
-        int numAprilTags = results.targets_Fiducials.length;
-        System.out.println("Number of April Tags detected: " + numAprilTags);
+public class Vision extends SubsystemBase {
+    private final String limelightName = "";
+    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    public Vision() {
+        LimelightHelpers.SetRobotOrientation(limelightName, 12, 12, 0, 0, 0, 0);
+        LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
+        LimelightHelpers.LimelightResults results =  LimelightHelpers.getLatestResults(limelightName);
+        LimelightHelpers.LimelightTarget_Fiducial[] fiducials = results.targets_Fiducials;
+        scheduler.scheduleAtFixedRate(this::periodic, 0, 10, TimeUnit.SECONDS);
 
-        if (numAprilTags > 0) {
-            // Assuming we are interested in the first detected April Tag
-            LimelightHelpers.LimelightTarget_Fiducial target = results.targets_Fiducials[0];
+    }
 
-            // Extract and print the pose and other relevant data
-            System.out.println("April Tag ID: " + target.fiducialID);
-            System.out.println("Pose (Field Space): " + target.getRobotPose_FieldSpace2D());
-            System.out.println("Target Area: " + target.ta);
-            System.out.println("Horizontal Offset: " + target.tx);
-            System.out.println("Vertical Offset: " + target.ty);
+    @Override
+    public void periodic() {
+        LimelightHelpers.LimelightResults results =  LimelightHelpers.getLatestResults(limelightName);
+        LimelightHelpers.LimelightTarget_Fiducial[] fiducials = results.targets_Fiducials;
+        if (fiducials != null && fiducials.length > 0) {
+            for (LimelightHelpers.LimelightTarget_Fiducial fiducial : fiducials) {
+                System.out.println("Fiducial ID: " + fiducial.fiducialID);
+                System.out.println("Fiducial Area: " + fiducial.ta);
+                System.out.println("Camera Pose (Target Space): " + fiducial.getCameraPose_TargetSpace2D());
+                System.out.println("Robot Pose (Field Space): " + fiducial.getRobotPose_FieldSpace2D());
+                System.out.println("Robot Pose (Target Space): " + fiducial.getRobotPose_TargetSpace2D());
+                System.out.println("Target Pose (Camera Space): " + fiducial.getTargetPose_CameraSpace2D());
+                System.out.println("Target Pose (Robot Space): " + fiducial.getTargetPose_RobotSpace2D());
+                System.out.println("--------------------------");
+            }
         } else {
-            System.out.println("No April Tags detected.");
+            System.out.println("No fiducial targets detected.");
         }
+
     }
 }
-//

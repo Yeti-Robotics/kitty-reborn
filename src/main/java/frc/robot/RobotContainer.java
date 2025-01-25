@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.limelite.vision;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import java.util.function.BooleanSupplier;
@@ -46,9 +45,7 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        new JoystickButton(driverJoystick, XboxController.Button.kA.value).onTrue(new InstantCommand(this::updateLimeLightStatus));
 
-        new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(new InstantCommand(this::adjustPositionOfCrosshair));
     }
 
     /**
@@ -60,29 +57,6 @@ public class RobotContainer {
         return null;
     }
 
-    private void updateLimeLightStatus(){
-        boolean isTargetDetected = vision.isTarget();
-        vision.updateLedMode(isTargetDetected);
-    }
 
-    private void adjustPositionOfCrosshair(){
-        double tx = vision.getTx();
-        double ty = vision.getTy();
-
-        if (Math.abs(tx) > 1.00){
-            System.out.println("Crosshair IS NOT aligned horizontally by [ " + tx + " ]");
-        }
-        else{
-            System.out.println("Crosshair IS aligned horizontally by [ " + tx + " ]");
-        }
-
-        if (Math.abs(ty) > 1.00){
-            System.out.println("Crosshair IS NOT aligned vertically by [ " + ty + " ]");
-        }
-        else{
-            System.out.println("Crosshair IS aligned horizontally by [ " + ty + " ]");
-        }
-
-    }
 }
 

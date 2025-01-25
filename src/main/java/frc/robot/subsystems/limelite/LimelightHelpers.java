@@ -462,10 +462,6 @@ public class LimelightHelpers {
             targets_Barcode = new LimelightTarget_Barcode[0];
 
         }
-
-
-        public Joystick getBestTarget() {
-        }
     }
 
     /**
