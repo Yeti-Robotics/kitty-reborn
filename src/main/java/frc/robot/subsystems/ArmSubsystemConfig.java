@@ -21,10 +21,6 @@ public class ArmSubsystemConfig {
     static final double I_value = 0;
     static final double D_value = 0;
 
-
-    static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
-    static final TalonFXConfiguration talonfxconfigs= new TalonFXConfiguration();
-
     static final Slot0Configs slot0Configs = new Slot0Configs()
             .withKA(0)
             .withKD(D_value)
@@ -33,6 +29,11 @@ public class ArmSubsystemConfig {
             .withKP(P_VALUE)
             .withKS(0)
             .withKV(0);
+
+    static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
+    static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration().withSlot0(slot0Configs);
+
+
 
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicJerk(0)

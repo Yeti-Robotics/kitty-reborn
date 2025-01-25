@@ -53,7 +53,6 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public Command deployArm(double newPosition){
-        armKraken.setControl(motionMagic.withPosition(newPosition));
         return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition)));
     }
 
