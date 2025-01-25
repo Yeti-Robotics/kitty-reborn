@@ -30,13 +30,11 @@ public class ArmSubsystemConfig {
             .withKS(0)
             .withKV(0);
 
-    static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
-    static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration().withSlot0(slot0Configs);
-
-
-
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicJerk(0)
             .withMotionMagicAcceleration(0)
             .withMotionMagicExpo_kA(0);
+
+    static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
+    static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration().withSlot0(slot0Configs).withMotionMagic(motionMagicConfigs);
 }
