@@ -20,7 +20,7 @@ import frc.robot.subsystems.ArmSubsystem;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-    public final ArmSubsystem arm = new ArmSubsystem();
+    final ArmSubsystem arm = new ArmSubsystem();
 
     XboxController xboxController;
 
