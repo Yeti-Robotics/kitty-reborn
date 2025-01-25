@@ -18,8 +18,6 @@ public class ArmSubsystem extends SubsystemBase {
     private final TalonFX armKraken;
     private final CANcoder armEncoder;
     final MotionMagicVoltage motionMagic;
-
-    //Constructor
     public ArmSubsystem() {
         armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_NAME);
         armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_NAME);
@@ -58,7 +56,6 @@ public class ArmSubsystem extends SubsystemBase {
         return startEnd(() -> moveDown(speed), this::stop);
     }
 
-    //Deploy Arm
     public Command deployArm(double newPosition){
         armKraken.setControl(motionMagic.withPosition(newPosition));
         return deployArm(newPosition);
