@@ -45,7 +45,6 @@ public class RobotContainer {
      */
     private void configureBindings() {
         xboxController.rightTrigger().onTrue(arm.deployArm(0.5));
-
     }
 
     /**
