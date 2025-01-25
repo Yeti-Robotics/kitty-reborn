@@ -23,8 +23,6 @@ public class Flywheel extends SubsystemBase {
         // set left motor to follow right motor
         rightFlyWheelMotor.setControl(new Follower(FlyWheelConfig.Left_Fly_Wheel_Id, true));
 
-        leftFlyWheelMotor.setControl(flyWheelRequest.withVelocity(30));
-
         rightFlyWheelMotor.getConfigurator().apply(flyWheelConfigs);
         leftFlyWheelMotor.getConfigurator().apply(flyWheelConfigs);
     }
@@ -39,10 +37,6 @@ public class Flywheel extends SubsystemBase {
         leftFlyWheelMotor.stopMotor();
     }
 
-    public Command spinFlyWheels(){
-        leftFlyWheelMotor.setControl(flyWheelRequest.withVelocity(0));
-        return spinFlyWheels();
-    }
 
     public Command spinShooter() {
         return startEnd(() -> setShooterSpeed(0.4), this::stop);
