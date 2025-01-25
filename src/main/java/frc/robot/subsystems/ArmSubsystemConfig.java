@@ -19,17 +19,18 @@ public class ArmSubsystemConfig {
     static final double ARM_DEPLOY_LOWER_BOUND = 0;
     static final double P_VALUE = 0;
     static final double I_value = 0;
+    static final double D_value = 0;
 
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
-    static final TalonFXConfiguration talonfxconfigs.slot0Configs = new TalonFXConfiguration();
+    static final TalonFXConfiguration talonfxconfigs= new TalonFXConfiguration();
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
             .withKA(0)
-            .withKD(0)
+            .withKD(D_value)
             .withKG(0)
-            .withKI(0)
-            .withKP(0)
+            .withKI(I_value)
+            .withKP(P_VALUE)
             .withKS(0)
             .withKV(0);
 
