@@ -31,10 +31,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
 
-    @Override
-    public void periodic(){
 
-    }
 
     public double getEnc() {
         return armEncoder.getAbsolutePosition().getValue().magnitude();
