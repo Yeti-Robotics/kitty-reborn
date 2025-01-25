@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -25,7 +24,20 @@ public class ArmSubsystemConfig {
     static final double I_value = 0;
 
 
-
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
     static final TalonFXConfiguration talonfxconfigs = new TalonFXConfiguration();
+
+    static final Slot0Configs slot0Configs = new Slot0Configs()
+            .withKA(0)
+            .withKD(0)
+            .withKG(0)
+            .withKI(0)
+            .withKP(0)
+            .withKS(0)
+            .withKV(0);
+
+    static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
+            .withMotionMagicJerk(0)
+            .withMotionMagicAcceleration(0)
+            .withMotionMagicExpo_kA(0);
 }
