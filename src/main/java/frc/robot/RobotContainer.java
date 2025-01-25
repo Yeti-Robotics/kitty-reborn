@@ -22,14 +22,14 @@ import frc.robot.subsystems.ArmSubsystem;
 public class RobotContainer {
     final ArmSubsystem arm = new ArmSubsystem();
 
-    XboxController xboxController;
+    CommandXboxController xboxController;
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
 
     public RobotContainer() {
-        xboxController = new XboxController(Constants.XBOX_CONTROLLER_PORT);
+        xboxController = new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
     }
 
@@ -44,6 +44,7 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+        xboxController.rightTrigger().onTrue(arm.deployArm(0.5));
 
     }
 
