@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.*;
+import com.ctre.phoenix6.signals.InvertedValue;
 
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
@@ -24,11 +25,16 @@ public class ArmSubsystemConfig {
             .withKP(P_VALUE)
             .withKS(S_VALUE)
             .withKV(V_VALUE);
+    static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
+            .withInverted(InvertedValue.CounterClockwise_Positive);
 
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicJerk(0)
             .withMotionMagicAcceleration(0);
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
-    static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration().withSlot0(slot0Configs).withMotionMagic(motionMagicConfigs);
+    static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration()
+            .withSlot0(slot0Configs)
+            .withMotionMagic(motionMagicConfigs)
+            .withMotorOutput(motorOutputConfigs);
 }
