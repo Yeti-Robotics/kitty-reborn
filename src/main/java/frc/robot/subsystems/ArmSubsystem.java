@@ -26,7 +26,6 @@ public class ArmSubsystem extends SubsystemBase {
         armEncoder.getConfigurator().apply(canconderconfigs);
 
         motionMagic = new MotionMagicVoltage(0);
-        final MotionMagicVelocityVoltage ArmRequest = new MotionMagicVelocityVoltage(0);
 
     }
 
