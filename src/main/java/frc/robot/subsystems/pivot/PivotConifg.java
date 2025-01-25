@@ -11,8 +11,6 @@ class PivotConifg {
     static final int PIVOT_MOTOR_ID = 29;
     static final int PIVOT_CANCoder_ID = 16;
 
-
-
     private static final Slot0Configs slot0Configs = new Slot0Configs()
             .withGravityType(GravityTypeValue.Arm_Cosine)
             .withKG(0)
@@ -35,7 +33,6 @@ class PivotConifg {
             .withStatorCurrentLimit(50)
             .withSupplyCurrentLimitEnable(true)
             .withSupplyCurrentLimit(50);
-
 
     static final TalonFXConfiguration pivotConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)

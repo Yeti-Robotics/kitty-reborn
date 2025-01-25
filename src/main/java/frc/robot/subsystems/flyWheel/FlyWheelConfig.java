@@ -2,7 +2,6 @@ package frc.robot.subsystems.flyWheel;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -24,7 +23,7 @@ public class FlyWheelConfig {
 
     private static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
             .withNeutralMode(NeutralModeValue.Brake)
-            .withInverted(InvertedValue.CounterClockwise_Positive);
+            .withInverted(InvertedValue.Clockwise_Positive);
 
     private static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
@@ -38,8 +37,6 @@ public class FlyWheelConfig {
             .withMotorOutput(motorOutputConfigs)
             .withCurrentLimits(currentLimitsConfigs);
 
-
     static final MotionMagicVelocityVoltage flyWheelRequest = new MotionMagicVelocityVoltage(0);
-
 
 }

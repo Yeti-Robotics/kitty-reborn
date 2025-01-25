@@ -11,13 +11,10 @@ import frc.robot.constants.Constants;
 import static frc.robot.subsystems.pivot.PivotConifg.pivotConfigs;
 import static frc.robot.subsystems.pivot.PivotConifg.pivotRequest;
 
-
 public class Pivot extends SubsystemBase {
 
     private final TalonFX pivotMotor;
     private final CANcoder pivotEncoder;
-
-
 
     public Pivot() {
         pivotMotor = new TalonFX(PivotConifg.PIVOT_MOTOR_ID, Constants.CANBus);
@@ -42,7 +39,6 @@ public class Pivot extends SubsystemBase {
         pivotMotor.setControl(pivotRequest.withPosition(homePosition));
         return homePosition(homePosition);
     }
-
 
     public Command pivotToPosition() {
         return startEnd(() -> set(0.1), this::stop);
