@@ -19,7 +19,8 @@ import frc.robot.subsystems.ArmSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
-public class RobotContainer {
+public class
+RobotContainer {
     final ArmSubsystem arm = new ArmSubsystem();
 
     CommandXboxController xboxController;
@@ -44,7 +45,8 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        xboxController.rightTrigger().onTrue(arm.deployArm(0.5));
+        xboxController.rightTrigger().whileTrue(arm.moveUpAndStop(0.3));
+        xboxController.leftTrigger().whileTrue(arm.moveDownAndStop(0.3));
     }
 
     /**
