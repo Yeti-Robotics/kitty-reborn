@@ -41,7 +41,7 @@ RobotContainer {
      * predicate, or via the named factories in {@link
      * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
      * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJystick Flight
      * joysticks}.
      */
     private void configureBindings() {
