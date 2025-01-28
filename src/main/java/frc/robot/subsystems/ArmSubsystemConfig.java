@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
@@ -26,6 +27,7 @@ public class ArmSubsystemConfig {
             .withKS(S_VALUE)
             .withKV(V_VALUE);
     static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
+            .withNeutralMode(NeutralModeValue.Brake)
             .withInverted(InvertedValue.CounterClockwise_Positive);
 
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
