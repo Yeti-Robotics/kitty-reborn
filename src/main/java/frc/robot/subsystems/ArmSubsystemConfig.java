@@ -34,9 +34,17 @@ public class ArmSubsystemConfig {
             .withMotionMagicJerk(0)
             .withMotionMagicAcceleration(0);
 
+    static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
+            .withStatorCurrentLimitEnable(true)
+            .withStatorCurrentLimit(0)
+            .withSupplyCurrentLimitEnable(true)
+            .withSupplyCurrentLimit(0);
+
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
     static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
             .withMotionMagic(motionMagicConfigs)
-            .withMotorOutput(motorOutputConfigs);
+            .withMotorOutput(motorOutputConfigs)
+            .withCurrentLimits(currentLimitsConfigs);
+
 }
