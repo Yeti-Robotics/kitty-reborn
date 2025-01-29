@@ -1,4 +1,4 @@
-package frc.robot.subsystems.flywheel;
+package frc.robot.subsystems.flyWheel;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
@@ -10,15 +10,15 @@ public class FlyWheelConfig {
     public static final int LEFT_FLY_WHEEL_ID = 5;
 
     private static final Slot0Configs slot0Configs = new Slot0Configs()
-            .withKV(0)
-            .withKA(0)
-            .withKS(0)
+            .withKV(0.2)
+            .withKA(0.2)
+            .withKS(0.5)
             .withKD(0);
 
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
-            .withMotionMagicExpo_kV(0)
-            .withMotionMagicExpo_kA(0)
-            .withMotionMagicAcceleration(0)
+            .withMotionMagicExpo_kV(0.2)
+            .withMotionMagicExpo_kA(0.2)
+            .withMotionMagicAcceleration(0.2)
             .withMotionMagicJerk(0);
 
     private static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
@@ -27,9 +27,9 @@ public class FlyWheelConfig {
 
     private static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
-            .withStatorCurrentLimit(0)
+            .withStatorCurrentLimit(0.1)
             .withSupplyCurrentLimitEnable(true)
-            .withSupplyCurrentLimit(0);
+            .withSupplyCurrentLimit(0.1);
 
     static final TalonFXConfiguration flyWheelConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.flywheel;
+package frc.robot.subsystems.flyWheel;
 
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
-import static frc.robot.subsystems.flywheel.FlyWheelConfig.flyWheelConfigs;
+import static frc.robot.subsystems.flyWheel.FlyWheelConfig.flyWheelConfigs;
 
 public class FlyWheel extends SubsystemBase {
 

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.flywheel.FlyWheel;
+import frc.robot.subsystems.flyWheel.FlyWheel;
 import frc.robot.subsystems.pivot.Pivot;
 
 import static edu.wpi.first.wpilibj2.command.Commands.startEnd;
