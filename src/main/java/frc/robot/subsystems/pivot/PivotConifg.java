@@ -15,24 +15,24 @@ class PivotConifg {
             .withGravityType(GravityTypeValue.Arm_Cosine)
             .withKG(0)
             .withKS(0)
-            .withKV(0)
-            .withKA(0)
-            .withKP(0)
-            .withKI(0.)
+            .withKV(0.1)
+            .withKA(0.3)
+            .withKP(0.5)
+            .withKI(0)
             .withKD(0);
 
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
-            .withMotionMagicExpo_kV(0)
-            .withMotionMagicExpo_kA(0)
+            .withMotionMagicExpo_kV(0.6)
+            .withMotionMagicExpo_kA(0.5)
             .withMotionMagicAcceleration(0)
             .withMotionMagicCruiseVelocity(0)
             .withMotionMagicJerk(0);
 
     private static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
-            .withStatorCurrentLimit(0)
+            .withStatorCurrentLimit(50)
             .withSupplyCurrentLimitEnable(true)
-            .withSupplyCurrentLimit(0);
+            .withSupplyCurrentLimit(50);
 
     static final TalonFXConfiguration pivotConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)

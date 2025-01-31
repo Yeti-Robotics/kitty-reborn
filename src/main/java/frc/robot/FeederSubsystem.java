@@ -21,6 +21,7 @@ public class FeederSubsystem extends SubsystemBase {
 
     public static FeederSubsystem getInstance() {
         return INSTANCE;
+
     }
 
     private FeederSubsystem() {

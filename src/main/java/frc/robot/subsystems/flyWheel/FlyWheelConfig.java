@@ -18,8 +18,8 @@ public class FlyWheelConfig {
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicExpo_kV(0.2)
             .withMotionMagicExpo_kA(0.2)
-            .withMotionMagicAcceleration(0.2)
-            .withMotionMagicJerk(0);
+            .withMotionMagicAcceleration(50)
+            .withMotionMagicJerk(50);
 
     private static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
             .withNeutralMode(NeutralModeValue.Brake)
@@ -27,9 +27,9 @@ public class FlyWheelConfig {
 
     private static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
-            .withStatorCurrentLimit(0.1)
+            .withStatorCurrentLimit(50)
             .withSupplyCurrentLimitEnable(true)
-            .withSupplyCurrentLimit(0.1);
+            .withSupplyCurrentLimit(50);
 
     static final TalonFXConfiguration flyWheelConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
