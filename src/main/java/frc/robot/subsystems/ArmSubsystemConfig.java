@@ -26,6 +26,7 @@ public class ArmSubsystemConfig {
             .withKP(P_VALUE)
             .withKS(S_VALUE)
             .withKV(V_VALUE);
+
     static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
             .withNeutralMode(NeutralModeValue.Brake)
             .withInverted(InvertedValue.CounterClockwise_Positive);
@@ -41,6 +42,7 @@ public class ArmSubsystemConfig {
             .withSupplyCurrentLimit(0);
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
+
     static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
             .withMotionMagic(motionMagicConfigs)
