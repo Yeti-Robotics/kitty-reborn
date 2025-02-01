@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.*;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -19,6 +20,7 @@ public class ArmSubsystemConfig {
     static final double V_VALUE = 0.2;
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
+            .withGravityType(GravityTypeValue.Arm_Cosine)
             .withKA(A_VALUE)
             .withKD(D_VALUE)
             .withKG(G_VALUE)
