@@ -5,21 +5,17 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveModule;
-import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
-import static frc.robot.Constants.MaxAngularRate;
-import static frc.robot.Constants.MaxSpeed;
+import static frc.robot.constants.Constants.MaxAngularRate;
+import static frc.robot.constants.Constants.MaxSpeed;
 
 
 /**
@@ -37,7 +33,7 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        xboxController = new CommandXboxController(frc.robot.Constants.XBOX_CONTROLLER_PORT);
+        xboxController = new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
     }
 

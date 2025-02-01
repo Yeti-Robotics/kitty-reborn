@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.constants;
 
 public class Constants {
     public static final int XBOX_CONTROLLER_PORT = 0;
