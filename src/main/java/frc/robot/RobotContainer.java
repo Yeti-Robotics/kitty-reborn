@@ -5,11 +5,18 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.flyWheel.FlyWheel;
+import frc.robot.subsystems.pivot.Pivot;
+
+import static edu.wpi.first.wpilibj2.command.Commands.startEnd;
 
 
 /**
@@ -20,14 +27,20 @@ import frc.robot.constants.Constants;
  */
 public class RobotContainer {
 
-    XboxController xboxController;
+    CommandXboxController xboxController;
+
+    private final FlyWheel flyWheel = new FlyWheel();
+    private final Pivot pivot = new Pivot();
+
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        xboxController = new XboxController(Constants.XBOX_CONTROLLER_PORT);
+        xboxController = new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
+
+
     }
 
 
@@ -41,7 +54,8 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-
+        xboxController.rightTrigger().whileTrue(flyWheel.spinShooter());
+        xboxController.leftTrigger().whileTrue(pivot.pivotToPosition());
     }
 
     /**
