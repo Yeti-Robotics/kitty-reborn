@@ -10,20 +10,21 @@ public class FlyWheelConfig {
     public static final int LEFT_FLY_WHEEL_ID = 5;
 
     private static final Slot0Configs slot0Configs = new Slot0Configs()
-            .withKV(0.2)
-            .withKA(0.2)
-            .withKS(0.5)
-            .withKD(0);
+            .withKV(90)
+            .withKA(0.9)
+            .withKS(10)
+            .withKD(0)
+            .withKP(5);
 
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
-            .withMotionMagicExpo_kV(0.2)
+            .withMotionMagicExpo_kV(0.4)
             .withMotionMagicExpo_kA(0.2)
             .withMotionMagicAcceleration(50)
             .withMotionMagicJerk(50);
 
     private static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
             .withNeutralMode(NeutralModeValue.Brake)
-            .withInverted(InvertedValue.Clockwise_Positive);
+            .withInverted(InvertedValue.CounterClockwise_Positive);
 
     private static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)

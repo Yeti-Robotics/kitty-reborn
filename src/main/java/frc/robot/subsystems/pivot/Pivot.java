@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 
-import static frc.robot.subsystems.pivot.PivotConifg.pivotConfigs;
-import static frc.robot.subsystems.pivot.PivotConifg.pivotRequest;
+import static frc.robot.subsystems.pivot.PivotConifg.*;
 
 public class Pivot extends SubsystemBase {
 
@@ -20,7 +19,8 @@ public class Pivot extends SubsystemBase {
         pivotMotor = new TalonFX(PivotConifg.PIVOT_MOTOR_ID, Constants.CANBus);
         pivotEncoder = new CANcoder(PivotConifg.PIVOT_CANCoder_ID, Constants.CANBus);
 
-        pivotMotor.getConfigurator().apply(pivotConfigs);
+        pivotMotor.getConfigurator().apply(motorPivotConfigs);
+        pivotEncoder.getConfigurator().apply(CANcoderPivotConfigs);
     }
 
     private void set(double speed){

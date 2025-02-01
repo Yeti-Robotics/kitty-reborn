@@ -1,11 +1,8 @@
 package frc.robot.subsystems.pivot;
 
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.signals.GravityTypeValue;
+import com.ctre.phoenix6.signals.*;
 
 class PivotConifg {
     static final int PIVOT_MOTOR_ID = 29;
@@ -28,16 +25,35 @@ class PivotConifg {
             .withMotionMagicCruiseVelocity(0)
             .withMotionMagicJerk(0);
 
+    private static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
+            .withNeutralMode(NeutralModeValue.Brake);
+
     private static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
             .withStatorCurrentLimit(50)
             .withSupplyCurrentLimitEnable(true)
             .withSupplyCurrentLimit(50);
 
-    static final TalonFXConfiguration pivotConfigs = new TalonFXConfiguration()
+    static final MagnetSensorConfigs CANcoderFeedbackConfigs = new MagnetSensorConfigs()
+            .withMagnetOffset(0)
+            .withSensorDirection(SensorDirectionValue.Clockwise_Positive)
+            .withAbsoluteSensorDiscontinuityPoint(0);
+
+    static final FeedbackConfigs motorFeedbackConfigs = new FeedbackConfigs()
+            .withFeedbackRemoteSensorID(PIVOT_CANCoder_ID)
+            .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
+            .withRotorToSensorRatio(0)
+            .withSensorToMechanismRatio(0);
+
+    static final TalonFXConfiguration motorPivotConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
             .withMotionMagic(motionMagicConfigs)
-            .withCurrentLimits(currentLimitsConfigs);
+            .withMotorOutput(motorOutputConfigs)
+            .withCurrentLimits(currentLimitsConfigs)
+            .withFeedback(motorFeedbackConfigs);
+
+    static final CANcoderConfiguration CANcoderPivotConfigs = new CANcoderConfiguration()
+            .withMagnetSensor(CANcoderFeedbackConfigs);
 
     static final MotionMagicVoltage pivotRequest = new MotionMagicVoltage(0);
 

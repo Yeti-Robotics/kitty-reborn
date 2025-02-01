@@ -1,6 +1,7 @@
 package frc.robot.subsystems.flyWheel;
 
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,14 +18,14 @@ public class FlyWheel extends SubsystemBase {
         rightFlyWheelMotor = new TalonFX(FlyWheelConfig.RIGHT_FLY_WHEEL_ID, Constants.CANBus);
         leftFlyWheelMotor = new TalonFX(FlyWheelConfig.LEFT_FLY_WHEEL_ID, Constants.CANBus);
 
-        rightFlyWheelMotor.setControl(new Follower(FlyWheelConfig.LEFT_FLY_WHEEL_ID, true));
+        rightFlyWheelMotor.setControl(new Follower(FlyWheelConfig.LEFT_FLY_WHEEL_ID, false));
 
         rightFlyWheelMotor.getConfigurator().apply(flyWheelConfigs);
         leftFlyWheelMotor.getConfigurator().apply(flyWheelConfigs);
     }
 
     private void setShooterSpeed(double speed) {
-        leftFlyWheelMotor.set(speed);
+        leftFlyWheelMotor.setControl(new VoltageOut(speed));
     }
 
     private void stop() {
@@ -32,7 +33,7 @@ public class FlyWheel extends SubsystemBase {
     }
 
     public Command spinShooter() {
-        return startEnd(() -> setShooterSpeed(0.4), this::stop);
+        return startEnd(() -> setShooterSpeed(2), this::stop);
     }
 
 }
