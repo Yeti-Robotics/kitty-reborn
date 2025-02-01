@@ -13,10 +13,10 @@ public class ArmSubsystemConfig {
     static final double P_VALUE = 0;
     static final double I_VALUE = 0;
     static final double D_VALUE = 0;
-    static final double A_VALUE = 0;
+    static final double A_VALUE = 0.2;
     static final double G_VALUE = 0;
     static final double S_VALUE = 0;
-    static final double V_VALUE = 0;
+    static final double V_VALUE = 0.2;
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
             .withKA(A_VALUE)
@@ -37,9 +37,9 @@ public class ArmSubsystemConfig {
 
     static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
-            .withStatorCurrentLimit(0)
+            .withStatorCurrentLimit(50)
             .withSupplyCurrentLimitEnable(true)
-            .withSupplyCurrentLimit(0);
+            .withSupplyCurrentLimit(50);
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
 

@@ -44,8 +44,8 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        xboxController.rightBumper().onTrue(arm.moveUpAndStop(0.3));
-        xboxController.leftBumper().onTrue(arm.moveDownAndStop(0.3));
+        xboxController.rightBumper().onTrue(arm.moveUpAndStop(0.5));
+        xboxController.leftBumper().onTrue(arm.moveDownAndStop(0.5));
     }
 
     /**
