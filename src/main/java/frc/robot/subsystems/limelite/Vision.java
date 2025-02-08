@@ -1,27 +1,40 @@
 package frc.robot.subsystems.limelite;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 
 public class Vision extends SubsystemBase {
     private final String limelightName = "";
-    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private LimelightHelpers.LimelightTarget_Fiducial[] fiducials;
+
     public Vision() {
         LimelightHelpers.SetRobotOrientation(limelightName, 12, 12, 0, 0, 0, 0);
         LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
-        LimelightHelpers.LimelightResults results =  LimelightHelpers.getLatestResults(limelightName);
-        LimelightHelpers.LimelightTarget_Fiducial[] fiducials = results.targets_Fiducials;
-        scheduler.scheduleAtFixedRate(this::periodic, 0, 10, TimeUnit.SECONDS);
+        updateVisionData();
+    }
 
+    private void updateVisionData() {
+        LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults(limelightName);
+        fiducials = results.targets_Fiducials;
+    }
+
+    public LimelightHelpers.LimelightTarget_Fiducial getLatestFiducial() {
+        if (fiducials != null && fiducials.length > 0) {
+            return fiducials[0]; // Return the first fiducial target
+        }
+        return null;
+    }
+
+    public boolean hasValidTarget() {
+        return LimelightHelpers.getTV(limelightName);
+    }
+
+    public double getHorizontalOffset() {
+        return LimelightHelpers.getTX(limelightName);
     }
 
     @Override
     public void periodic() {
-        LimelightHelpers.LimelightResults results =  LimelightHelpers.getLatestResults(limelightName);
-        LimelightHelpers.LimelightTarget_Fiducial[] fiducials = results.targets_Fiducials;
+        updateVisionData();
         if (fiducials != null && fiducials.length > 0) {
             for (LimelightHelpers.LimelightTarget_Fiducial fiducial : fiducials) {
                 System.out.println("Fiducial ID: " + fiducial.fiducialID);
@@ -36,6 +49,5 @@ public class Vision extends SubsystemBase {
         } else {
             System.out.println("No fiducial targets detected.");
         }
-
     }
 }
