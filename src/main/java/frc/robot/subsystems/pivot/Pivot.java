@@ -40,7 +40,12 @@ public class Pivot extends SubsystemBase {
         return homePosition(homePosition);
     }
 
+    public void pivotPosition(PivotPositions pivotAngle){
+        pivotMotor.setControl(pivotRequest.withPosition(pivotAngle.getPosition()));
+    }
+
     public Command pivotToPosition() {
         return startEnd(() -> set(0.1), this::stop);
     }
+
 }

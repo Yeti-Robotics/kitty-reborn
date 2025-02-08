@@ -8,22 +8,34 @@ class PivotConifg {
     static final int PIVOT_MOTOR_ID = 29;
     static final int PIVOT_CANCoder_ID = 16;
 
+
+    public enum PivotPositions{
+        HANDOFF(-1),
+        AIM(-0.82);
+
+        private final double position;
+
+        PivotPositions(final double position) {
+            this.position = position;
+        }
+        public double getPosition(){
+            return position;
+        }
+    }
+
     private static final Slot0Configs slot0Configs = new Slot0Configs()
             .withGravityType(GravityTypeValue.Arm_Cosine)
-            .withKG(0)
+            .withKG(3.25)
             .withKS(0)
-            .withKV(0.1)
-            .withKA(0.3)
-            .withKP(0.5)
+            .withKV(0)
+            .withKA(12)
+            .withKP(4)
             .withKI(0)
-            .withKD(0);
+            .withKD(160);
 
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
-            .withMotionMagicExpo_kV(0.6)
-            .withMotionMagicExpo_kA(0.5)
-            .withMotionMagicAcceleration(0)
-            .withMotionMagicCruiseVelocity(0)
-            .withMotionMagicJerk(0);
+            .withMotionMagicAcceleration(0.4)
+            .withMotionMagicCruiseVelocity(0.2);
 
     private static final MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs()
             .withNeutralMode(NeutralModeValue.Brake);
@@ -35,7 +47,7 @@ class PivotConifg {
             .withSupplyCurrentLimit(50);
 
     static final MagnetSensorConfigs CANcoderFeedbackConfigs = new MagnetSensorConfigs()
-            .withMagnetOffset(0.11303)
+            .withMagnetOffset(0.111572)
             .withSensorDirection(SensorDirectionValue.Clockwise_Positive)
             .withAbsoluteSensorDiscontinuityPoint(0);
 
