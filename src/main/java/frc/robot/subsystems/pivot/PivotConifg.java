@@ -35,13 +35,13 @@ class PivotConifg {
             .withSupplyCurrentLimit(50);
 
     static final MagnetSensorConfigs CANcoderFeedbackConfigs = new MagnetSensorConfigs()
-            .withMagnetOffset(0)
+            .withMagnetOffset(0.11303)
             .withSensorDirection(SensorDirectionValue.Clockwise_Positive)
             .withAbsoluteSensorDiscontinuityPoint(0);
 
     static final FeedbackConfigs motorFeedbackConfigs = new FeedbackConfigs()
             .withFeedbackRemoteSensorID(PIVOT_CANCoder_ID)
-            .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
+            .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
             .withRotorToSensorRatio(0)
             .withSensorToMechanismRatio(0);
 
