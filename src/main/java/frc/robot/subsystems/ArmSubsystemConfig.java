@@ -8,7 +8,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
     static final int ARM_CANCODER_ID = 5;
-    static final double ARM_HANDOFF_POSITION = 0.5;
+    static final double ARM_HANDOFF_POSITION = 0.51;
     static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
     static final double ARM_DEPLOY_LOWER_BOUND = 0;
     static final double P_VALUE = 0;
