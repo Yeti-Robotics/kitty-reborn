@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 
+
 import static frc.robot.subsystems.pivot.PivotConifg.*;
 
 public class Pivot extends SubsystemBase {
@@ -27,25 +28,15 @@ public class Pivot extends SubsystemBase {
         pivotMotor.set(speed);
     }
 
-    private double getPivotPosition() {
-        return pivotEncoder.getPosition().getValue().magnitude();
-    }
+    //private double getPivotPosition() {
+        //return pivotEncoder.getPosition().getValue().magnitude();
+    //}
 
     private void stop() {
         pivotMotor.stopMotor();
     }
 
-    public Command homePosition(double homePosition){
-        pivotMotor.setControl(pivotRequest.withPosition(homePosition));
-        return homePosition(homePosition);
+    private void pivotToPosition(PivotPositions position){
+        pivotMotor.setControl(pivotRequest.withPosition(position.getPosition()));
     }
-
-    public void pivotPosition(PivotPositions pivotAngle){
-        pivotMotor.setControl(pivotRequest.withPosition(pivotAngle.getPosition()));
-    }
-
-    public Command pivotToPosition() {
-        return startEnd(() -> set(0.1), this::stop);
-    }
-
 }

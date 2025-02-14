@@ -1,27 +1,13 @@
 package frc.robot.subsystems.pivot;
 
 import com.ctre.phoenix6.configs.*;
+import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.signals.*;
 
 class PivotConifg {
     static final int PIVOT_MOTOR_ID = 29;
     static final int PIVOT_CANCoder_ID = 16;
-
-
-    public enum PivotPositions{
-        HANDOFF(-1),
-        AIM(-0.82);
-
-        private final double position;
-
-        PivotPositions(final double position) {
-            this.position = position;
-        }
-        public double getPosition(){
-            return position;
-        }
-    }
 
     private static final Slot0Configs slot0Configs = new Slot0Configs()
             .withGravityType(GravityTypeValue.Arm_Cosine)
@@ -67,6 +53,6 @@ class PivotConifg {
     static final CANcoderConfiguration CANcoderPivotConfigs = new CANcoderConfiguration()
             .withMagnetSensor(CANcoderFeedbackConfigs);
 
-    static final MotionMagicVoltage pivotRequest = new MotionMagicVoltage(0);
+    static final MotionMagicTorqueCurrentFOC pivotRequest = new MotionMagicTorqueCurrentFOC(0);
 
 }

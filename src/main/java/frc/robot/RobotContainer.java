@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.flyWheel.FlyWheel;
 import frc.robot.subsystems.pivot.Pivot;
+import frc.robot.subsystems.pivot.PivotPositions;
 
 import static edu.wpi.first.wpilibj2.command.Commands.startEnd;
 
@@ -55,7 +56,8 @@ public class RobotContainer {
      */
     private void configureBindings() {
         xboxController.rightTrigger().whileTrue(flyWheel.spinShooter());
-        xboxController.leftTrigger().whileTrue(pivot.pivotToPosition());
+        xboxController.leftTrigger().onTrue(pivot.)
+        //xboxController.leftTrigger().onTrue(pivot.pivotToPosition(PivotPositions.AIM));
     }
 
     /**
