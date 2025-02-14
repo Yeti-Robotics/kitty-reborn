@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+
 import static frc.robot.Constants.MaxAngularRate;
 import static frc.robot.Constants.MaxSpeed;
 
@@ -24,6 +26,8 @@ import static frc.robot.Constants.MaxSpeed;
  */
 public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
+
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
     CommandXboxController xboxController;
 
@@ -59,6 +63,9 @@ public class RobotContainer {
                                  .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
+         xboxController.leftBumper().whileTrue(intakeSubsystem.ejectCommand());
+         xboxController.rightBumper().whileTrue(intakeSubsystem.intakeCommand());
+
     }
 
 
