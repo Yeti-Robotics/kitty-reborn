@@ -55,16 +55,18 @@ public class RobotContainer {
                 .withDriveRequestType(SwerveModule.DriveRequestType.OpenLoopVoltage)
                 .withSteerRequestType(SwerveModule.SteerRequestType.MotionMagicExpo);
 
-         final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
-         m_drivetrain.setDefaultCommand(
-                 m_drivetrain.applyRequest(() ->
-                         m_driveRequest.withVelocityX(-joystick.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withVelocityY(-joystick.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
-                 )
-         );
-         xboxController.leftBumper().whileTrue(intakeSubsystem.ejectCommand());
-         xboxController.rightBumper().whileTrue(intakeSubsystem.intakeCommand());
+//         final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
+//         m_drivetrain.setDefaultCommand(
+//                 m_drivetrain.applyRequest(() ->
+//                         m_driveRequest.withVelocityX(-joystick.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
+//                                 .withVelocityY(-joystick.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
+//                                 .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
+//                 )
+//         );
+
+        xboxController.a().whileTrue(intakeSubsystem.ejectCommand());
+        xboxController.b().whileTrue(intakeSubsystem.intakeCommand());
+
 
     }
 

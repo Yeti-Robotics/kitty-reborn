@@ -6,4 +6,5 @@ public class Constants {
     public static final String RIO_BUS = "rio";
     public static final double MaxSpeed = 0;
     public static final double MaxAngularRate = 0;
+
 }
