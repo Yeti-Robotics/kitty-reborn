@@ -21,22 +21,18 @@ public class Pivot extends SubsystemBase {
         pivotEncoder = new CANcoder(PivotConifg.PIVOT_CANCoder_ID, Constants.CANBus);
 
         pivotMotor.getConfigurator().apply(motorPivotConfigs);
-        pivotEncoder.getConfigurator().apply(CANcoderPivotConfigs);
+        pivotEncoder.getConfigurator().apply(CANCoderPivotConfigs);
     }
 
     private void set(double speed){
         pivotMotor.set(speed);
     }
 
-    //private double getPivotPosition() {
-        //return pivotEncoder.getPosition().getValue().magnitude();
-    //}
-
     private void stop() {
         pivotMotor.stopMotor();
     }
 
-    private void pivotToPosition(PivotPositions position){
-        pivotMotor.setControl(pivotRequest.withPosition(position.getPosition()));
+    public Command pivotToPosition(PivotPositions position){
+        return runOnce(() -> pivotMotor.setControl(pivotRequest.withPosition(position.getPosition())));
     }
 }

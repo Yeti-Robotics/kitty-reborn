@@ -15,9 +15,9 @@ class PivotConifg {
             .withKS(0)
             .withKV(0)
             .withKA(12)
-            .withKP(4)
+            .withKP(2)
             .withKI(0)
-            .withKD(160);
+            .withKD(55);
 
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicAcceleration(0.4)
@@ -32,7 +32,7 @@ class PivotConifg {
             .withSupplyCurrentLimitEnable(true)
             .withSupplyCurrentLimit(50);
 
-    static final MagnetSensorConfigs CANcoderFeedbackConfigs = new MagnetSensorConfigs()
+    static final MagnetSensorConfigs CANCoderFeedbackConfigs = new MagnetSensorConfigs()
             .withMagnetOffset(0.111572)
             .withSensorDirection(SensorDirectionValue.Clockwise_Positive)
             .withAbsoluteSensorDiscontinuityPoint(0);
@@ -40,8 +40,8 @@ class PivotConifg {
     static final FeedbackConfigs motorFeedbackConfigs = new FeedbackConfigs()
             .withFeedbackRemoteSensorID(PIVOT_CANCoder_ID)
             .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
-            .withRotorToSensorRatio(0)
-            .withSensorToMechanismRatio(0);
+            .withRotorToSensorRatio(67.1)
+            .withSensorToMechanismRatio(1);
 
     static final TalonFXConfiguration motorPivotConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
@@ -50,8 +50,8 @@ class PivotConifg {
             .withCurrentLimits(currentLimitsConfigs)
             .withFeedback(motorFeedbackConfigs);
 
-    static final CANcoderConfiguration CANcoderPivotConfigs = new CANcoderConfiguration()
-            .withMagnetSensor(CANcoderFeedbackConfigs);
+    static final CANcoderConfiguration CANCoderPivotConfigs = new CANcoderConfiguration()
+            .withMagnetSensor(CANCoderFeedbackConfigs);
 
     static final MotionMagicTorqueCurrentFOC pivotRequest = new MotionMagicTorqueCurrentFOC(0);
 

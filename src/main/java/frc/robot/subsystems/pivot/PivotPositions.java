@@ -1,8 +1,8 @@
 package frc.robot.subsystems.pivot;
 
 public enum PivotPositions{
-    HANDOFF(-1),
-    AIM(-0.82);
+    HANDOFF(0.045),
+    AIM(0.11);
 
     private final double position;
 

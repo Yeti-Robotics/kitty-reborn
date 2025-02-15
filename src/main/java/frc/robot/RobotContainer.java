@@ -56,8 +56,8 @@ public class RobotContainer {
      */
     private void configureBindings() {
         xboxController.rightTrigger().whileTrue(flyWheel.spinShooter());
-        xboxController.leftTrigger().onTrue(pivot.)
-        //xboxController.leftTrigger().onTrue(pivot.pivotToPosition(PivotPositions.AIM));
+        xboxController.leftTrigger().onTrue(pivot.pivotToPosition(PivotPositions.AIM));
+        xboxController.leftBumper().onTrue(pivot.pivotToPosition(PivotPositions.HANDOFF));
     }
 
     /**
