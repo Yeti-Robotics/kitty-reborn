@@ -50,3 +50,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     // create a object for the motor, really just moving the motors, beam break
+
+    // after beam break make a command that sucks in the note until it detects that the note is in
