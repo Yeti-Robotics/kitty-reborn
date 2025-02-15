@@ -17,6 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public IntakeSubsystem(){
         intakeMotor.getConfigurator().apply(intakeMotorConfig);
+
     }
 
     public void stopIntake(){
@@ -27,7 +28,10 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.setControl(new VoltageOut(speed));
     }
     public Command spinIntake(){
-        return startEnd(()-> runIntakeOut(2), this::stopIntake).withTimeout(1);
+        return startEnd(()-> runIntakeOut(5), this::stopIntake).withTimeout(.5);
+    }
+    public Command spinIntakeOut(){
+        return  startEnd(()-> runIntakeOut(-5), this::stopIntake).withTimeout(1);
     }
 
 }

@@ -43,8 +43,7 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        xboxController.a().whileTrue(intakeSubsystem.spinIntake());
-
+        xboxController.a().onTrue(intakeSubsystem.spinIntake());
     }
 
     /**
