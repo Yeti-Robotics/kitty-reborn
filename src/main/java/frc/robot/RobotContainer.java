@@ -66,6 +66,7 @@ public class RobotContainer {
 */
         xboxController.a().whileTrue(intakeSubsystem.ejectCommand());
         xboxController.b().whileTrue(intakeSubsystem.intakeCommand());
+        xboxController.x().whileTrue(intakeSubsystem.intakeUntilBeamBreak());
 
 
     }

@@ -2,6 +2,7 @@ package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,6 +16,11 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem(){
         intakeMotor = new TalonFX(IntakeConfigs.INTAKE_MOTOR_ID, CANIVORE_BUS);
         beamBreak = new DigitalInput(IntakeConfigs.BEAM_BREAK_PORT);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("intake beam break", getBeamBreak());
     }
 
     private boolean getBeamBreak(){
@@ -32,7 +38,6 @@ public class IntakeSubsystem extends SubsystemBase {
     public Command intakeCommand() {
         return startEnd(() -> setSpeed(0.5), this::stopMotor);
     }
-
     public Command ejectCommand(){
         return startEnd(() -> setSpeed(-0.5), this::stopMotor);
     }
@@ -42,11 +47,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
     }
 
+//    public boolean Command beamBreakValue(val){
+
+    }
+
     //make a get function, get the value of beam break and return it in a boolean form, commands
 
     //for example running the function until the beam brake function is met
 
-}
+
 
 
     // create a object for the motor, really just moving the motors, beam break
