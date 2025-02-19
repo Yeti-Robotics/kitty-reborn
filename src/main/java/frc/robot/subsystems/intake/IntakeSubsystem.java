@@ -47,7 +47,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     }
 
-//    public boolean Command beamBreakValue(val){
+//    public Command beamBreakValue(boolean valu){
+//        return getBeamBreak(valu);
+//    }
 
     }
 
