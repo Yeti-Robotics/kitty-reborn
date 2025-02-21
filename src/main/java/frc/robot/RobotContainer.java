@@ -44,6 +44,7 @@ public class RobotContainer {
      */
     private void configureBindings() {
         xboxController.a().onTrue(intakeSubsystem.spinIntake(true));
+        xboxController.b().onTrue(intakeSubsystem.spinIntake(false));
         // if true, intakes note, if false spits the note out
     }
     /**
