@@ -43,9 +43,9 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        xboxController.a().onTrue(intakeSubsystem.spinIntake());
+        xboxController.a().onTrue(intakeSubsystem.spinIntake(true));
+        // if true, intakes note, if false spits the note out
     }
-
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
