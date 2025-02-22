@@ -1,16 +1,15 @@
-// Copyright (c) FIRST and other WPILib contributors.
+package frc.robot.subsystems;
 
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot;
-
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.AlignWithAprilTagCommand;
 import frc.robot.Constants;
-
+import frc.robot.Robot;
+import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.limelite.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,15 +18,19 @@ import frc.robot.Constants;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-
-    XboxController xboxController;
-
+    private final CommandSwerveDrivetrain drivetrain = new CommandSwerveDrivetrain(TunerConstants.DrivetrainConstants);
+    private final Vision limelight = new Vision();
+    private final AlignWithAprilTagCommand align = new AlignWithAprilTagCommand(drivetrain, limelight);
+    CommandXboxController xboxController;
+    private final Joystick joystick = new Joystick(0);
+    private final JoystickButton rotateButton = new JoystickButton(joystick, 1);
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        xboxController = new XboxController(Constants.XBOX_CONTROLLER_PORT);
+        xboxController = new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
+
     }
 
 
@@ -41,15 +44,6 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-
-    }
-
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
-    public Command getAutonomousCommand() {
-        return null;
+        xboxController.leftTrigger().onTrue(align);
     }
 }

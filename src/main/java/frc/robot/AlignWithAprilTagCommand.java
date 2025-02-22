@@ -1,35 +1,53 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.limelite.Vision;
 
-public class AlignWithAprilTagCommand extends SubsystemBase {
-    private final MotorController motor;
-    private final PIDController pidController;
+public class AlignWithAprilTagCommand extends Command {
+    private final CommandSwerveDrivetrain drivetrain;
     private final Vision vision;
+    private final PIDController pidController;
 
-    public AlignWithAprilTagCommand(MotorController motor, Vision vision) {
-        this.motor = motor;
+    public AlignWithAprilTagCommand(CommandSwerveDrivetrain drivetrain, Vision vision) {
+        this.drivetrain = drivetrain;
         this.vision = vision;
-        pidController = new PIDController(0.1, 0.0, 0.0); // Example PID values, you may need to tune them
-        pidController.setTolerance(1.0); // Tolerance in degrees
+        this.pidController = new PIDController(0.02, 0.0, 0.002); // Tuned PID values
+        pidController.setTolerance(1.0);
+
+        addRequirements(drivetrain, vision);
     }
 
     @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        if (vision.hasValidTarget()) {
-            double targetOffset = vision.getHorizontalOffset();
-            double output = pidController.calculate(targetOffset, 0);
-            motor.set(output);
-        } else {
-            motor.set(0); // Stop the motor if no valid target is found
-        }
+    public void initialize() {
+        pidController.setSetpoint(0.0); // The goal is to align with the target (offset of 0 degrees)
     }
 
-    public boolean isAtTargetAngle() {
+    @Override
+    public void execute() {
+        if (!vision.hasValidTarget()) {
+            System.out.println("No valid target detected.");
+            return;
+        }
+
+        double horizontalOffset = vision.getHorizontalOffset(); // TX value from Limelight
+        double rotationSpeed = pidController.calculate(horizontalOffset);
+
+        SwerveRequest.RobotCentric request = new SwerveRequest.RobotCentric();
+        request.withRotationalRate(rotationSpeed); // Adjust robot rotation
+
+        drivetrain.applyRequest(() -> request);
+    }
+
+    @Override
+    public boolean isFinished() {
         return pidController.atSetpoint();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        drivetrain.applyRequest(() -> new SwerveRequest.RobotCentric().withRotationalRate(0));
     }
 }
