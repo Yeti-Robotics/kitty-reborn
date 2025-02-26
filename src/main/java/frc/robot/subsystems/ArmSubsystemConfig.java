@@ -8,19 +8,19 @@ public class ArmSubsystemConfig {
     static final int ARM_CANCODER_ID = 5;
     static final double SENSOR_TO_ROTOR = 60;
     static final int SENSOR_TO_MECHANISM = 1;
-    static final Feed FEED_BACK_SENSOR_SOURCE = "Fused CANcoder";
+    static final String FEED_BACK_SENSOR_SOURCE = "Fused CANcoder";
     static final double MAGNET_OFFSET = 0.442138671875;
 
-    static final double ARM_HANDOFF_POSITION = 0.51;
-    static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
-    static final double ARM_DEPLOY_LOWER_BOUND = 0;
-    static final double P_VALUE = 0;
+    static final double ARM_HANDOFF_POSITION = 0.429;
+    static final double ARM_DEPLOY_UPPER_BOUND = 0.429;
+    static final double ARM_DEPLOY_LOWER_BOUND = -0.083;
+    static final double P_VALUE = 256;
     static final double I_VALUE = 0;
-    static final double D_VALUE = 0;
-    static final double A_VALUE = 0.2;
-    static final double G_VALUE = 0;
+    static final double D_VALUE = 192;
+    static final double A_VALUE = 9;
+    static final double G_VALUE = 11;
     static final double S_VALUE = 0;
-    static final double V_VALUE = 0.2;
+    static final double V_VALUE = 0;
 
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
@@ -38,8 +38,9 @@ public class ArmSubsystemConfig {
             .withInverted(InvertedValue.CounterClockwise_Positive);
 
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
+            .withMotionMagicCruiseVelocity(2.75)
             .withMotionMagicJerk(0)
-            .withMotionMagicAcceleration(0);
+            .withMotionMagicAcceleration(2.75);
 
     static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
