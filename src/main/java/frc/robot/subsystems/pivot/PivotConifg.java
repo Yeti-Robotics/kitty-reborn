@@ -14,10 +14,10 @@ class PivotConifg {
             .withKG(3.25)
             .withKS(0)
             .withKV(0)
-            .withKA(12)
-            .withKP(2)
+            .withKA(3)
+            .withKP(2400)
             .withKI(0)
-            .withKD(55);
+            .withKD(48);
 
     private static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
             .withMotionMagicAcceleration(0.4)
