@@ -10,6 +10,8 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.constants.Constants;
+import frc.robot.constants.Intake.IntakeSubsystem;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import static frc.robot.Constants.MaxAngularRate;
@@ -24,8 +26,8 @@ import static frc.robot.Constants.MaxSpeed;
  */
 public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
-
     CommandXboxController xboxController;
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -59,6 +61,9 @@ public class RobotContainer {
                                  .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
+        xboxController.a().onTrue(intakeSubsystem.spinIntake(true));
+        xboxController.b().onTrue(intakeSubsystem.spinIntake(false));
+        // if true, intakes note, if false spits the note out
     }
 
 
