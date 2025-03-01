@@ -33,7 +33,7 @@ public class FlyWheel extends SubsystemBase {
     }
 
     public Command spinShooter() {
-        return startEnd(() -> setShooterSpeed(2), this::stop);
+        return startEnd(() -> setShooterSpeed(7), this::stop);
     }
 
 }

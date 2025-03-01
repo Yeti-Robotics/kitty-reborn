@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.ShootCommand;
+import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.flyWheel.FlyWheel;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotPositions;
@@ -32,6 +34,8 @@ public class RobotContainer {
 
     private final FlyWheel flyWheel = new FlyWheel();
     private final Pivot pivot = new Pivot();
+    private final Feeder feeder = new Feeder();
+    private final ShootCommand shootCommand = new ShootCommand();
 
 
     /**
@@ -59,6 +63,8 @@ public class RobotContainer {
         xboxController.leftTrigger().onTrue(pivot.pivotToPosition(PivotPositions.AIM));
         xboxController.leftBumper().onTrue(pivot.pivotToPosition(PivotPositions.HANDOFF));
         xboxController.rightBumper().onTrue(pivot.pivotToPosition(PivotPositions.HOME));
+        xboxController.a().onTrue(feeder.feedNote());
+        xboxController.b().onTrue(shootCommand.shoot());
     }
 
     /**
