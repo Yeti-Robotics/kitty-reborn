@@ -6,11 +6,6 @@ import com.ctre.phoenix6.signals.*;
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
     static final int ARM_CANCODER_ID = 5;
-    static final double SENSOR_TO_ROTOR = 60;
-    static final int SENSOR_TO_MECHANISM = 1;
-    static final String FEED_BACK_SENSOR_SOURCE = "Fused CANcoder";
-    static final double MAGNET_OFFSET = 0.442138671875;
-
     static final double ARM_HANDOFF_POSITION = 0.429;
     static final double P_VALUE = 256;
     static final double I_VALUE = 0;
@@ -47,14 +42,23 @@ public class ArmSubsystemConfig {
             .withSupplyCurrentLimit(50);
 
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration()
-            .withMagnetSensor(new MagnetSensorConfigs().withMagnetOffset(0.442138671875).withSensorDirection(SensorDirectionValue.CounterClockwise_Positive).withAbsoluteSensorDiscontinuityPoint(.5));
+            .withMagnetSensor(
+                new MagnetSensorConfigs()
+                        .withMagnetOffset(0.442138671875)
+                        .withSensorDirection(SensorDirectionValue.CounterClockwise_Positive)
+                        .withAbsoluteSensorDiscontinuityPoint(.5)
+            );
 
     static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
             .withMotionMagic(motionMagicConfigs)
             .withMotorOutput(motorOutputConfigs)
             .withCurrentLimits(currentLimitsConfigs)
-            .withFeedback(new FeedbackConfigs().withFeedbackRemoteSensorID(ARM_CANCODER_ID).withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder));
+            .withFeedback(
+                new FeedbackConfigs()
+                        .withFeedbackRemoteSensorID(ARM_CANCODER_ID)
+                        .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
+            );
 
 
 
