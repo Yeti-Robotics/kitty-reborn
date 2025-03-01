@@ -12,8 +12,6 @@ public class ArmSubsystemConfig {
     static final double MAGNET_OFFSET = 0.442138671875;
 
     static final double ARM_HANDOFF_POSITION = 0.429;
-    static final double ARM_DEPLOY_UPPER_BOUND = 0.429;
-    static final double ARM_DEPLOY_LOWER_BOUND = -0.083;
     static final double P_VALUE = 256;
     static final double I_VALUE = 0;
     static final double D_VALUE = 192;
