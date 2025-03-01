@@ -1,5 +1,6 @@
 package frc.robot.subsystems.limelite;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
@@ -12,9 +13,14 @@ public class Vision extends SubsystemBase {
         updateVisionData();
     }
 
-    private void updateVisionData() {
-        LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults(limelightName);
+    private LimelightHelpers.LimelightResults updateVisionData() {
+        LimelightHelpers.LimelightResults results = (LimelightHelpers.LimelightResults) LimelightHelpers.getLatestResults(limelightName);
+        LimelightHelpers.getTargetPose_RobotSpace(limelightName);
         fiducials = results.targets_Fiducials;
+        SmartDashboard.putNumberArray("Target pos", LimelightHelpers.getTargetPose_RobotSpace(limelightName));
+        SmartDashboard.putData("Latest Results: ", LimelightHelpers.getLatestResults(limelightName));
+
+        return updateVisionData();
     }
 
     public LimelightHelpers.LimelightTarget_Fiducial getLatestFiducial() {

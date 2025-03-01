@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.util.sendable.Sendable;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -1559,10 +1559,11 @@ public class LimelightHelpers {
 
     /**
      * Gets the latest JSON results output and returns a LimelightResults object.
+     *
      * @param limelightName Name of the Limelight camera
      * @return LimelightResults object containing all current target data
      */
-    public static LimelightResults getLatestResults(String limelightName) {
+    public static Sendable getLatestResults(String limelightName) {
 
         long start = System.nanoTime();
         LimelightHelpers.LimelightResults results = new LimelightHelpers.LimelightResults();
@@ -1571,8 +1572,8 @@ public class LimelightHelpers {
         }
 
         try {
-            results = mapper.readValue(getJSONDump(limelightName), LimelightResults.class);
-        } catch (JsonProcessingException e) {
+                results = mapper.readValue(getJSONDump(limelightName), LimelightResults.class);
+            } catch (JsonProcessingException e) {
             results.error = "lljson error: " + e.getMessage();
         }
 
@@ -1583,6 +1584,6 @@ public class LimelightHelpers {
             System.out.printf("lljson: %.2f\r\n", millis);
         }
 
-        return results;
+        return (Sendable) results;
     }
 }
