@@ -18,8 +18,8 @@ public class ArmSubsystem extends SubsystemBase {
     private final CANcoder armEncoder;
     final MotionMagicVoltage motionMagic;
     public ArmSubsystem() {
-        armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_NAME);
-        armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_NAME);
+        armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_BUS);
+        armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_BUS);
 
         armKraken.getConfigurator().apply(talonFXConfigs);
         armEncoder.getConfigurator().apply(canconderconfigs);
