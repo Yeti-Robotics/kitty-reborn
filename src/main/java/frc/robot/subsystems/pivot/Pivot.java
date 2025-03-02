@@ -15,8 +15,8 @@ public class Pivot extends SubsystemBase {
     private final CANcoder pivotEncoder;
 
     public Pivot() {
-        pivotMotor = new TalonFX(PivotConfig.PIVOT_MOTOR_ID, Constants.CANBus);
-        pivotEncoder = new CANcoder(PivotConfig.PIVOT_CANCoder_ID, Constants.CANBus);
+        pivotMotor = new TalonFX(PivotConfig.PIVOT_MOTOR_ID, Constants.CANIVORE_BUS);
+        pivotEncoder = new CANcoder(PivotConfig.PIVOT_CANCoder_ID, Constants.CANIVORE_BUS);
 
         pivotMotor.getConfigurator().apply(motorPivotConfigs);
         pivotEncoder.getConfigurator().apply(CANCoderPivotConfigs);
