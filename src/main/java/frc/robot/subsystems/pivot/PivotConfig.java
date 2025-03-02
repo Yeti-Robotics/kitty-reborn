@@ -2,10 +2,9 @@ package frc.robot.subsystems.pivot;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.signals.*;
 
-class PivotConifg {
+class PivotConfig {
     static final int PIVOT_MOTOR_ID = 29;
     static final int PIVOT_CANCoder_ID = 16;
 

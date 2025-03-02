@@ -19,7 +19,6 @@ import frc.robot.subsystems.flyWheel.FlyWheel;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotPositions;
 
-import static edu.wpi.first.wpilibj2.command.Commands.startEnd;
 
 
 /**
@@ -64,7 +63,7 @@ public class RobotContainer {
         xboxController.leftBumper().onTrue(pivot.pivotToPosition(PivotPositions.HANDOFF));
         xboxController.rightBumper().onTrue(pivot.pivotToPosition(PivotPositions.HOME));
         xboxController.a().onTrue(feeder.feedNote());
-        xboxController.b().onTrue(shootCommand.shoot());
+        xboxController.b().onTrue(feeder.spinFeeder());
     }
 
     /**
