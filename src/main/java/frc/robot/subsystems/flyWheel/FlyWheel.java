@@ -15,8 +15,8 @@ public class FlyWheel extends SubsystemBase {
     private final TalonFX leftFlyWheelMotor;
 
     public FlyWheel() {
-        rightFlyWheelMotor = new TalonFX(FlyWheelConfig.RIGHT_FLY_WHEEL_ID, Constants.CANBus);
-        leftFlyWheelMotor = new TalonFX(FlyWheelConfig.LEFT_FLY_WHEEL_ID, Constants.CANBus);
+        rightFlyWheelMotor = new TalonFX(FlyWheelConfig.RIGHT_FLY_WHEEL_ID, Constants.CANIVORE_BUS);
+        leftFlyWheelMotor = new TalonFX(FlyWheelConfig.LEFT_FLY_WHEEL_ID, Constants.CANIVORE_BUS);
 
         rightFlyWheelMotor.setControl(new Follower(FlyWheelConfig.LEFT_FLY_WHEEL_ID, false));
 

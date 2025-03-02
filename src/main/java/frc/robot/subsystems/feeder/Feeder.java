@@ -15,7 +15,7 @@ public class Feeder extends SubsystemBase {
     private final DigitalInput feederBeamBreak;
 
     public Feeder() {
-        feederMotor = new TalonFX(FEEDER_MOTOR_ID, Constants.CANBus);
+        feederMotor = new TalonFX(FEEDER_MOTOR_ID, Constants.CANIVORE_BUS);
         feederBeamBreak = new DigitalInput(BEAM_BREAK_PORT_ID);
         feederMotor.getConfigurator().apply(motorOutputConfigs);
     }
