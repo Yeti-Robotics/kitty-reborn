@@ -1,7 +1,6 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.arm;
 
 //Imports
-import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -9,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
-import static frc.robot.subsystems.ArmSubsystemConfig.canconderconfigs;
-import static frc.robot.subsystems.ArmSubsystemConfig.talonFXConfigs;
+import static frc.robot.subsystems.arm.ArmSubsystemConfig.canconderconfigs;
+import static frc.robot.subsystems.arm.ArmSubsystemConfig.talonFXConfigs;
 
 public class ArmSubsystem extends SubsystemBase {
 

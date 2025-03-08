@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.arm;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.signals.*;

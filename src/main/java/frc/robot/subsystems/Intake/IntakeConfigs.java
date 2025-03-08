@@ -1,4 +1,4 @@
-package frc.robot.constants.Intake;
+package frc.robot.subsystems.Intake;
 
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 

@@ -7,14 +7,19 @@ package frc.robot;
 
 import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
-import frc.robot.constants.Intake.IntakeSubsystem;
+import frc.robot.subsystems.Intake.IntakeSubsystem;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.feeder.Feeder;
+import frc.robot.subsystems.flyWheel.FlyWheel;
+import frc.robot.subsystems.pivot.Pivot;
+import frc.robot.subsystems.pivot.PivotPositions;
+
 import static frc.robot.Constants.MaxAngularRate;
 import static frc.robot.Constants.MaxSpeed;
 
@@ -28,7 +33,13 @@ import static frc.robot.Constants.MaxSpeed;
 public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
     CommandXboxController xboxController;
+
+    private final Pivot pivot = new Pivot();
+    private final FlyWheel flyWheel = new FlyWheel();
+    private final Feeder feeder = new Feeder();
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -57,14 +68,14 @@ public class RobotContainer {
          final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
          m_drivetrain.setDefaultCommand(
                  m_drivetrain.applyRequest(() ->
-                         m_driveRequest.withVelocityX(-joystick.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withVelocityY(-joystick.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
+                         m_driveRequest.withVelocityX(joystick.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
+                                 .withVelocityY(joystick.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
                                  .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
-        xboxController.a().onTrue(intakeSubsystem.spinIntake(true));
-        xboxController.b().onTrue(intakeSubsystem.spinIntake(false));
-        // if true, intakes note, if false spits the note out
+         xboxController.x().onTrue(pivot.pivotToPosition(PivotPositions.HOME));
+         xboxController.a().onTrue((pivot.pivotToPosition(PivotPositions.AIM)));
+       xboxController.rightTrigger().whileTrue(flyWheel.spinShooter().andThen(feeder.spinFeeder().alongWith(flyWheel.spinShooter())));
     }
 
     /**
