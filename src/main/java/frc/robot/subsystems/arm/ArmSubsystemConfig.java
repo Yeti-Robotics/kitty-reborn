@@ -58,7 +58,4 @@ public class ArmSubsystemConfig {
                         .withFeedbackRemoteSensorID(ARM_CANCODER_ID)
                         .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
             );
-
-
-
 }

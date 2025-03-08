@@ -16,6 +16,7 @@ public class ArmSubsystem extends SubsystemBase {
     private final TalonFX armKraken;
     private final CANcoder armEncoder;
     final MotionMagicTorqueCurrentFOC motionMagic;
+
     public ArmSubsystem() {
         armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.RIO_BUS);
         armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.RIO_BUS);
