@@ -9,12 +9,12 @@ import frc.robot.constants.Constants;
 
 import static frc.robot.subsystems.feeder.FeederConfig.*;
 
-public class Feeder extends SubsystemBase {
+public class FeederSubsystem extends SubsystemBase {
 
     private final TalonFX feederMotor;
     private final DigitalInput feederBeamBreak;
 
-    public Feeder() {
+    public FeederSubsystem() {
         feederMotor = new TalonFX(FEEDER_MOTOR_ID, Constants.CANIVORE_BUS);
         feederBeamBreak = new DigitalInput(BEAM_BREAK_PORT_ID);
         feederMotor.getConfigurator().apply(motorOutputConfigs);

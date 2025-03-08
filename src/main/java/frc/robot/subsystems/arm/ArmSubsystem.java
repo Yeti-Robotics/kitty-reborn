@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.arm;
 
 //Imports
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
-import static frc.robot.subsystems.ArmSubsystemConfig.canconderconfigs;
-import static frc.robot.subsystems.ArmSubsystemConfig.talonFXConfigs;
+import static frc.robot.subsystems.arm.ArmSubsystemConfig.canconderconfigs;
+import static frc.robot.subsystems.arm.ArmSubsystemConfig.talonFXConfigs;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -31,7 +31,7 @@ public class ArmSubsystem extends SubsystemBase {
         return armEncoder.getAbsolutePosition().getValue().magnitude();
     }
 
-    public Command deployArm(ArmSubsystemConfig.ArmPositions newPosition){
+    public Command deployArm(ArmPositions newPosition){
         return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
     }
 

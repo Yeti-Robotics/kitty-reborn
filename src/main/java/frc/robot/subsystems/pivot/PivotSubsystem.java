@@ -9,12 +9,12 @@ import frc.robot.constants.Constants;
 
 import static frc.robot.subsystems.pivot.PivotConfig.*;
 
-public class Pivot extends SubsystemBase {
+public class PivotSubsystem extends SubsystemBase {
 
     private final TalonFX pivotMotor;
     private final CANcoder pivotEncoder;
 
-    public Pivot() {
+    public PivotSubsystem() {
         pivotMotor = new TalonFX(PivotConfig.PIVOT_MOTOR_ID, Constants.CANIVORE_BUS);
         pivotEncoder = new CANcoder(PivotConfig.PIVOT_CANCoder_ID, Constants.CANIVORE_BUS);
 

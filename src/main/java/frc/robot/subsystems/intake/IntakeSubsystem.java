@@ -1,4 +1,4 @@
-package frc.robot.constants.Intake;
+package frc.robot.subsystems.intake;
 
 
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.constants.Constants.CANIVORE_BUS;
-import static frc.robot.constants.Intake.IntakeConfigs.*;
+import static frc.robot.subsystems.intake.IntakeConfigs.*;
 
 
 public class IntakeSubsystem extends SubsystemBase {

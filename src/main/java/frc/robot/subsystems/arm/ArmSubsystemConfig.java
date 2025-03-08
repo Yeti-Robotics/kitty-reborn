@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.arm;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.signals.*;
@@ -58,20 +58,6 @@ public class ArmSubsystemConfig {
                         .withFeedbackRemoteSensorID(ARM_CANCODER_ID)
                         .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
             );
-
-    public enum ArmPositions{
-        HANDOFF(0.429),
-        DEPLOY(0);
-
-        private final double position;
-
-        ArmPositions(final double position) {
-            this.position = position;
-        }
-        public double getPosition(){
-            return position;
-        }
-    }
 
 
 
