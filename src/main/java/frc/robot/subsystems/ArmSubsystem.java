@@ -1,8 +1,7 @@
 package frc.robot.subsystems;
 
 //Imports
-import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,7 +15,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     private final TalonFX armKraken;
     private final CANcoder armEncoder;
-    final MotionMagicVoltage motionMagic;
+    final MotionMagicTorqueCurrentFOC motionMagic;
     public ArmSubsystem() {
         armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_BUS);
         armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_BUS);
@@ -24,7 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
         armKraken.getConfigurator().apply(talonFXConfigs);
         armEncoder.getConfigurator().apply(canconderconfigs);
 
-        motionMagic = new MotionMagicVoltage(0);
+        motionMagic = new MotionMagicTorqueCurrentFOC(0);
 
     }
 
@@ -32,24 +31,8 @@ public class ArmSubsystem extends SubsystemBase {
         return armEncoder.getAbsolutePosition().getValue().magnitude();
     }
 
-    private void moveUp(double speed) {
-        armKraken.set(Math.abs(speed));
-    }
-
-    private void moveDown(double speed) {
-        armKraken.set(-Math.abs(speed));
-    }
-
-    public Command moveUpAndStop(double speed) {
-        return startEnd(() -> moveUp(speed), this::stop);
-    }
-
-    public Command moveDownAndStop(double speed){
-        return startEnd(() -> moveDown(speed), this::stop);
-    }
-
-    public Command deployArm(double newPosition){
-        return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition)));
+    public Command deployArm(ArmSubsystemConfig.ArmPositions newPosition){
+        return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
     }
 
     private void stop() {
