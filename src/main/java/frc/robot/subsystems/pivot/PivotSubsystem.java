@@ -22,15 +22,11 @@ public class PivotSubsystem extends SubsystemBase {
         pivotEncoder.getConfigurator().apply(CANCoderPivotConfigs);
     }
 
-    private void set(double speed){
-        pivotMotor.set(speed);
+    public Command pivotToPosition(PivotPositions position){
+        return runOnce(() -> pivotMotor.setControl(pivotRequest.withPosition(position.getPosition())));
     }
 
     private void stop() {
         pivotMotor.stopMotor();
-    }
-
-    public Command pivotToPosition(PivotPositions position){
-        return runOnce(() -> pivotMotor.setControl(pivotRequest.withPosition(position.getPosition())));
     }
 }

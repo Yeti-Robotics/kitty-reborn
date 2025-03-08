@@ -27,11 +27,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    public double getEnc() {
-        return armEncoder.getAbsolutePosition().getValue().magnitude();
-    }
-
-    public Command deployArm(ArmPositions newPosition){
+    public Command armToPosition(ArmPositions newPosition){
         return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
     }
 

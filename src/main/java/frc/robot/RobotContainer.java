@@ -47,10 +47,23 @@ public class RobotContainer {
                                  .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
-        xboxController.leftBumper().onTrue(armSubsystem.deployArm(ArmPositions.DEPLOY));
-        xboxController.rightBumper().onTrue(armSubsystem.deployArm(ArmPositions.HANDOFF));
+
+        xboxController.leftBumper().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
+        xboxController.rightBumper().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
+
+        xboxController.x().onTrue(pivotSubsystem.pivotToPosition(PivotPositions.HOME));
+        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
         //Handoff
-        xboxController.leftTrigger().onTrue(armSubsystem.deployArm(ArmPositions.HANDOFF).andThen(pivotSubsystem.pivotToPosition(PivotPositions.HANDOFF)).andThen(intakeSubsystem.out()).alongWith(feederSubsystem.feedNote()));
+        xboxController.leftTrigger()
+                .onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF)
+                        .andThen(pivotSubsystem.pivotToPosition(PivotPositions.HANDOFF))
+                        .andThen(intakeSubsystem.out())
+                        .alongWith(feederSubsystem.feedNote()));
+
+        xboxController.rightTrigger()
+                .whileTrue(flywheelSubsystem.spinShooter()
+                        .andThen(feederSubsystem.spinFeeder()
+                                .alongWith(flywheelSubsystem.spinShooter())));
 
     }
 
