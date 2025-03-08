@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 //Imports
+import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -16,7 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     private final TalonFX armKraken;
     private final CANcoder armEncoder;
-    final MotionMagicVoltage motionMagic;
+    final MotionMagicTorqueCurrentFOC motionMagic;
     public ArmSubsystem() {
         armKraken = new TalonFX(ArmSubsystemConfig.ARM_KRAKEN_ID, Constants.CANIVORE_BUS);
         armEncoder = new CANcoder(ArmSubsystemConfig.ARM_CANCODER_ID, Constants.CANIVORE_BUS);
@@ -24,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
         armKraken.getConfigurator().apply(talonFXConfigs);
         armEncoder.getConfigurator().apply(canconderconfigs);
 
-        motionMagic = new MotionMagicVoltage(0);
+        motionMagic = new MotionMagicTorqueCurrentFOC(0);
 
     }
 

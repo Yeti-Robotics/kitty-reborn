@@ -6,7 +6,6 @@ import com.ctre.phoenix6.signals.*;
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
     static final int ARM_CANCODER_ID = 5;
-    static final double ARM_HANDOFF_POSITION = 0.429;
     static final double P_VALUE = 256;
     static final double I_VALUE = 0;
     static final double D_VALUE = 192;
@@ -14,7 +13,6 @@ public class ArmSubsystemConfig {
     static final double G_VALUE = 11;
     static final double S_VALUE = 0;
     static final double V_VALUE = 0;
-
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
             .withGravityType(GravityTypeValue.Arm_Cosine)
@@ -59,6 +57,20 @@ public class ArmSubsystemConfig {
                         .withFeedbackRemoteSensorID(ARM_CANCODER_ID)
                         .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
             );
+
+    public enum ArmPositions{
+        HANDOFF(0.429),
+        DEPLOY(0);
+
+        private final double position;
+
+        ArmPositions(final double position) {
+            this.position = position;
+        }
+        public double getPosition(){
+            return position;
+        }
+    }
 
 
 
