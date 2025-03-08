@@ -31,22 +31,6 @@ public class ArmSubsystem extends SubsystemBase {
         return armEncoder.getAbsolutePosition().getValue().magnitude();
     }
 
-    private void moveUp(double speed) {
-        armKraken.set(Math.abs(speed));
-    }
-
-    private void moveDown(double speed) {
-        armKraken.set(-Math.abs(speed));
-    }
-
-    public Command moveUpAndStop(double speed) {
-        return startEnd(() -> moveUp(speed), this::stop);
-    }
-
-    public Command moveDownAndStop(double speed){
-        return startEnd(() -> moveDown(speed), this::stop);
-    }
-
     public Command deployArm(ArmSubsystemConfig.ArmPositions newPosition){
         return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
     }
