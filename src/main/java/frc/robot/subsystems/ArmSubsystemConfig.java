@@ -6,6 +6,7 @@ import com.ctre.phoenix6.signals.*;
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
     static final int ARM_CANCODER_ID = 5;
+    
     static final double P_VALUE = 256;
     static final double I_VALUE = 0;
     static final double D_VALUE = 192;
