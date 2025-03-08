@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -49,8 +47,8 @@ public class ArmSubsystem extends SubsystemBase {
         return startEnd(() -> moveDown(speed), this::stop);
     }
 
-    public Command deployArm(double newPosition){
-        return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition)));
+    public Command deployArm(ArmSubsystemConfig.ArmPositions newPosition){
+        return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
     }
 
     private void stop() {

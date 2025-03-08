@@ -13,40 +13,23 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
 import frc.robot.constants.Intake.IntakeSubsystem;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmSubsystemConfig;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import static frc.robot.Constants.MaxAngularRate;
 import static frc.robot.Constants.MaxSpeed;
 
-
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
     CommandXboxController xboxController;
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
     public RobotContainer() {
         xboxController = new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
     }
 
-
-    /**
-     * Use this method to define your trigger->command mappings. Triggers can be created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-     * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
-     */
     private void configureBindings() {
          final SwerveRequest.FieldCentric m_driveRequest = new SwerveRequest.FieldCentric()
                 .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1)
@@ -61,9 +44,11 @@ public class RobotContainer {
                                  .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
-        xboxController.a().onTrue(intakeSubsystem.spinIntake(true));
-        xboxController.b().onTrue(intakeSubsystem.spinIntake(false));
+        xboxController.leftBumper().onTrue(armSubsystem.deployArm(ArmSubsystemConfig.ArmPositions.DEPLOY));
+        xboxController.rightBumper().onTrue(armSubsystem.deployArm(ArmSubsystemConfig.ArmPositions.HANDOFF));
         // if true, intakes note, if false spits the note out
+
+
     }
 
 
