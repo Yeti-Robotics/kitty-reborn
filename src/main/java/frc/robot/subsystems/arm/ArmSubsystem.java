@@ -31,8 +31,4 @@ public class ArmSubsystem extends SubsystemBase {
     public Command armToPosition(ArmPositions newPosition){
         return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
     }
-
-    private void stop() {
-        armKraken.stopMotor();
-    }
 }

@@ -25,8 +25,4 @@ public class PivotSubsystem extends SubsystemBase {
     public Command pivotToPosition(PivotPositions position){
         return runOnce(() -> pivotMotor.setControl(pivotRequest.withPosition(position.getPosition())));
     }
-
-    private void stop() {
-        pivotMotor.stopMotor();
-    }
 }
