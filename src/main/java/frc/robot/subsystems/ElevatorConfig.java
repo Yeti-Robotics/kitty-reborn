@@ -8,9 +8,9 @@ public class ElevatorConfig {
     public static final double kElevatorMaxVelocity = 0.0;
     public static final double kElevatorMaxAcceleration = 0.0;
 
-    public static final double kElevatorGearRatio = 10.0;
-    public static final double kElevatorSpoolRadius = 0.05;
-    public static final double kElevatorEncoderResolution = 10;
+    public static final double kElevatorGearRatio = 0;
+    public static final double kElevatorSpoolRadius = 0.;
+    public static final double kElevatorEncoderResolution = 0;
     public static final double kElevatorMaxHeight = 2.0;
     public static final double kElevatorMinHeight = 2.0;
 
