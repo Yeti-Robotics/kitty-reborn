@@ -1,11 +1,4 @@
-// Copyright (c) 2024 FRC 6328
-// http://github.com/Mechanical-Advantage
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file at
-// the root directory of this project.
-
-package frc.robot.util;
+package frc.robot.util.controllerUtils;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -59,6 +52,7 @@ public class AllianceFlipUtil {
 
     public static boolean shouldFlip() {
         return DriverStation.getAlliance().isPresent() &&
-            DriverStation.getAlliance().get() == Alliance.Red;
+                DriverStation.getAlliance().get() == Alliance.Red;
     }
 }
+

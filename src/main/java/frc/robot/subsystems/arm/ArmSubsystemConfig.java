@@ -1,41 +1,19 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.arm;
 
 import com.ctre.phoenix6.configs.*;
-import com.ctre.phoenix6.signals.GravityTypeValue;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.*;
 
 public class ArmSubsystemConfig {
     static final int ARM_KRAKEN_ID = 21;
     static final int ARM_CANCODER_ID = 5;
-
-    public enum ArmPositions {
-        ARM_HANDOFF_POSITION(0.51),
-        ARM_DEPLOY_UPPER_BOUND(0.15),
-        ARM_DEPLOY_LOWER_BOUND(0);
-
-        private ArmPositions(final double position) {
-            this.position = position;
-        }
-
-        private double position;
-
-        public double getPosition() {
-            return position;
-        }
-    }
-
-    //static final double ARM_HANDOFF_POSITION = 0.51;
-    //static final double ARM_DEPLOY_UPPER_BOUND = 0.15;
-    //static final double ARM_DEPLOY_LOWER_BOUND = 0;
-
-    static final double P_VALUE = 0;
+    
+    static final double P_VALUE = 256;
     static final double I_VALUE = 0;
-    static final double D_VALUE = 0;
-    static final double A_VALUE = 0.2;
-    static final double G_VALUE = 0;
+    static final double D_VALUE = 192;
+    static final double A_VALUE = 9;
+    static final double G_VALUE = 11;
     static final double S_VALUE = 0;
-    static final double V_VALUE = 0.2;
+    static final double V_VALUE = 0;
 
     static final Slot0Configs slot0Configs = new Slot0Configs()
             .withGravityType(GravityTypeValue.Arm_Cosine)
@@ -52,8 +30,9 @@ public class ArmSubsystemConfig {
             .withInverted(InvertedValue.CounterClockwise_Positive);
 
     static final MotionMagicConfigs motionMagicConfigs = new MotionMagicConfigs()
+            .withMotionMagicCruiseVelocity(2.75)
             .withMotionMagicJerk(0)
-            .withMotionMagicAcceleration(0);
+            .withMotionMagicAcceleration(2.75);
 
     static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
@@ -61,12 +40,22 @@ public class ArmSubsystemConfig {
             .withSupplyCurrentLimitEnable(true)
             .withSupplyCurrentLimit(50);
 
-    static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration();
+    static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration()
+            .withMagnetSensor(
+                new MagnetSensorConfigs()
+                        .withMagnetOffset(0.442138671875)
+                        .withSensorDirection(SensorDirectionValue.CounterClockwise_Positive)
+                        .withAbsoluteSensorDiscontinuityPoint(.5)
+            );
 
     static final TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration()
             .withSlot0(slot0Configs)
             .withMotionMagic(motionMagicConfigs)
             .withMotorOutput(motorOutputConfigs)
-            .withCurrentLimits(currentLimitsConfigs);
-
+            .withCurrentLimits(currentLimitsConfigs)
+            .withFeedback(
+                new FeedbackConfigs()
+                        .withFeedbackRemoteSensorID(ARM_CANCODER_ID)
+                        .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
+            );
 }
