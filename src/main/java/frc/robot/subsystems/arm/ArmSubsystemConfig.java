@@ -34,6 +34,7 @@ public class ArmSubsystemConfig {
             .withMotionMagicJerk(0)
             .withMotionMagicAcceleration(2.75);
 
+
     static final CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
             .withStatorCurrentLimit(50)
