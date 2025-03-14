@@ -40,6 +40,7 @@ public class ArmSubsystemConfig {
             .withSupplyCurrentLimitEnable(true)
             .withSupplyCurrentLimit(50);
 
+
     static final CANcoderConfiguration canconderconfigs = new CANcoderConfiguration()
             .withMagnetSensor(
                 new MagnetSensorConfigs()
@@ -57,5 +58,7 @@ public class ArmSubsystemConfig {
                 new FeedbackConfigs()
                         .withFeedbackRemoteSensorID(ARM_CANCODER_ID)
                         .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
+                        .withRotorToSensorRatio(60)
+                        .withSensorToMechanismRatio(1)
             );
 }
