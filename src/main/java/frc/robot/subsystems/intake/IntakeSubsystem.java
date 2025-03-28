@@ -27,7 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void runIntake(double speed){
-        intakeMotor.setControl(new VoltageOut(speed));
+        intakeMotor.setControl(new VoltageOut(3));
     }
 
     public Command in(){

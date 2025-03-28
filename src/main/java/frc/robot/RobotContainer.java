@@ -19,7 +19,6 @@ import static frc.robot.Constants.MaxAngularRate;
 import static frc.robot.Constants.MaxSpeed;
 
 public class RobotContainer {
-    private final CommandXboxController joystick = new CommandXboxController(0);
     CommandXboxController xboxController;
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
@@ -42,14 +41,17 @@ public class RobotContainer {
          final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
          m_drivetrain.setDefaultCommand(
                  m_drivetrain.applyRequest(() ->
-                         m_driveRequest.withVelocityX(-joystick.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withVelocityY(-joystick.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
+                         m_driveRequest.withVelocityX(xboxController.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
+                                 .withVelocityY(xboxController.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
+                                 .withRotationalRate(-xboxController.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
+         xboxController.start().onTrue(m_drivetrain.runOnce(m_drivetrain::seedFieldCentric));
 
         xboxController.leftBumper().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
         xboxController.rightBumper().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
+        xboxController.y().whileTrue(intakeSubsystem.in());
+        xboxController.b().whileTrue(intakeSubsystem.out());
 
         xboxController.x().onTrue(pivotSubsystem.pivotToPosition(PivotPositions.HOME));
         xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
@@ -65,7 +67,10 @@ public class RobotContainer {
                         .andThen(feederSubsystem.spinFeeder()
                                 .alongWith(flywheelSubsystem.spinShooter())));
 
+        xboxController.y().whileTrue(intakeSubsystem.in());
+
     }
+
 
     public Command getAutonomousCommand() {
         return null;

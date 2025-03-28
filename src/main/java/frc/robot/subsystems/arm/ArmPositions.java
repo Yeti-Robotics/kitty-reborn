@@ -2,7 +2,7 @@ package frc.robot.subsystems.arm;
 
 public enum ArmPositions {
     HANDOFF(0.429),
-    DEPLOY(0);
+    DEPLOY(-0.072266);
 
     private final double position;
 
