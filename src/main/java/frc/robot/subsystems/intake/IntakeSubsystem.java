@@ -37,14 +37,5 @@ public class IntakeSubsystem extends SubsystemBase {
     public Command out(){
         return startEnd(()-> runIntake(-5), this::stopIntake);
     }
-
-    /*public Command spinIntake(boolean reversed){
-        if (reversed == true){
-            return in();
-        }
-        else{
-            return out();
-        }
-    }*/
 }
 
