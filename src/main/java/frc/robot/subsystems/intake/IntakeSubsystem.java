@@ -38,13 +38,13 @@ public class IntakeSubsystem extends SubsystemBase {
         return startEnd(()-> runIntake(-ROLLER_SPEED), this::stopIntake).withTimeout(3);
     }
 
-    public Command spinIntake(boolean reversed){
+    /*public Command spinIntake(boolean reversed){
         if (reversed == true){
             return in();
         }
         else{
             return out();
         }
-    }
+    }*/
 }
 
