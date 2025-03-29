@@ -1,9 +1,11 @@
 package frc.robot.subsystems.arm;
 
 //Imports
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
@@ -25,16 +27,17 @@ public class ArmSubsystem extends SubsystemBase {
         armEncoder.getConfigurator().apply(canconderconfigs);
 
         motionMagic = new MotionMagicTorqueCurrentFOC(0);
-
-        double pos = armKraken.getPosition().getValueAsDouble();
-
     }
 
-//    public double getCurrentArmPos(){
-//        double currentPosition = this.
-//    }
+    public double getCurrentArmPos(){
+        return armKraken.getPosition().getValueAsDouble();
+    }
+
+    public boolean atSetPoint(double desiredPosition, double positionTolerance) {
+        return Math.abs(armKraken.getPosition().getValueAsDouble() - desiredPosition) < positionTolerance;
+    }
 
     public Command armToPosition(ArmPositions newPosition){
-        return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));
+        return run(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition()))).until(() -> atSetPoint(newPosition.getPosition(), 0));
     }
 }

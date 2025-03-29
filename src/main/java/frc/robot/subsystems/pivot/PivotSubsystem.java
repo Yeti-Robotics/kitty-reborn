@@ -22,7 +22,13 @@ public class PivotSubsystem extends SubsystemBase {
         pivotEncoder.getConfigurator().apply(CANCoderPivotConfigs);
     }
 
+    public boolean atSetPoint(double desiredPosition, double positionTolerance) {
+        return Math.abs(pivotMotor.getPosition().getValueAsDouble() - desiredPosition) < positionTolerance;
+    }
+
+
+
     public Command pivotToPosition(PivotPositions position){
-        return runOnce(() -> pivotMotor.setControl(pivotRequest.withPosition(position.getPosition())));
+        return run(() -> pivotMotor.setControl(pivotRequest.withPosition(position.getPosition()))).until(() -> atSetPoint(position.getPosition(), 0));
     }
 }

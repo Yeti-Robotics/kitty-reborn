@@ -50,7 +50,7 @@ public class RobotContainer {
          xboxController.start().onTrue(m_drivetrain.runOnce(m_drivetrain::seedFieldCentric));
 
         xboxController.leftTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
-//        xboxController.rightTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
+        xboxController.y().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
         xboxController.rightBumper().whileTrue(intakeSubsystem.in());
         xboxController.leftBumper().whileTrue(intakeSubsystem.out());
 
@@ -58,6 +58,7 @@ public class RobotContainer {
 //        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
 
         xboxController.rightTrigger()
+
                 .onTrue(
                         armSubsystem.armToPosition(ArmPositions.HANDOFF)
                         .andThen(pivotSubsystem.pivotToPosition(PivotPositions.HANDOFF))
