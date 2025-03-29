@@ -38,7 +38,7 @@ class PivotConfig {
 
     static final FeedbackConfigs motorFeedbackConfigs = new FeedbackConfigs()
             .withFeedbackRemoteSensorID(PIVOT_CANCoder_ID)
-            .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
+            .withFeedbackSensorSource(FeedbackSensorSourceValue.FusedCANcoder)
             .withRotorToSensorRatio(67.1)
             .withSensorToMechanismRatio(1);
 

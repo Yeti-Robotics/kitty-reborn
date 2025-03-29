@@ -26,7 +26,13 @@ public class ArmSubsystem extends SubsystemBase {
 
         motionMagic = new MotionMagicTorqueCurrentFOC(0);
 
+        double pos = armKraken.getPosition().getValueAsDouble();
+
     }
+
+//    public double getCurrentArmPos(){
+//        double currentPosition = this.
+//    }
 
     public Command armToPosition(ArmPositions newPosition){
         return runOnce(() -> armKraken.setControl(motionMagic.withPosition(newPosition.getPosition())));

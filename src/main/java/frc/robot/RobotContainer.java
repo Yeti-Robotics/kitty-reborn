@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.constants.Constants;
@@ -41,34 +42,32 @@ public class RobotContainer {
          final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
          m_drivetrain.setDefaultCommand(
                  m_drivetrain.applyRequest(() ->
-                         m_driveRequest.withVelocityX(xboxController.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withVelocityY(xboxController.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
+                         m_driveRequest.withVelocityX(MathUtil.applyDeadband(-xboxController.getLeftY(), 0.05) * TunerConstants.kSpeedAt12Volts.magnitude())
+                                 .withVelocityY(MathUtil.applyDeadband(-xboxController.getLeftX(), 0.05) * TunerConstants.kSpeedAt12Volts.magnitude())
                                  .withRotationalRate(-xboxController.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
          xboxController.start().onTrue(m_drivetrain.runOnce(m_drivetrain::seedFieldCentric));
 
-        xboxController.leftBumper().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
-        xboxController.rightBumper().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
-        xboxController.y().whileTrue(intakeSubsystem.in());
-        xboxController.b().whileTrue(intakeSubsystem.out());
+        xboxController.leftTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
+//        xboxController.rightTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
+        xboxController.rightBumper().whileTrue(intakeSubsystem.in());
+        xboxController.leftBumper().whileTrue(intakeSubsystem.out());
 
         xboxController.x().onTrue(pivotSubsystem.pivotToPosition(PivotPositions.HOME));
-        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
-        //Handoff
-        xboxController.leftTrigger()
-                .onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF)
+//        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
+
+        xboxController.rightTrigger()
+                .onTrue(
+                        armSubsystem.armToPosition(ArmPositions.HANDOFF)
                         .andThen(pivotSubsystem.pivotToPosition(PivotPositions.HANDOFF))
                         .andThen(intakeSubsystem.out())
                         .alongWith(feederSubsystem.feedNote()));
 
-        xboxController.rightTrigger()
-                .whileTrue(flywheelSubsystem.spinShooter()
-                        .andThen(feederSubsystem.spinFeeder()
-                                .alongWith(flywheelSubsystem.spinShooter())));
-
-        xboxController.y().whileTrue(intakeSubsystem.in());
-
+//        xboxController.rightTrigger()
+//                .whileTrue(flywheelSubsystem.spinShooter()
+//                        .andThen(feederSubsystem.spinFeeder()
+//                                .alongWith(flywheelSubsystem.spinShooter())));
     }
 
 

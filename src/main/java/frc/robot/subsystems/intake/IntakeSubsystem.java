@@ -27,15 +27,15 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void runIntake(double speed){
-        intakeMotor.setControl(new VoltageOut(3));
+        intakeMotor.setControl(new VoltageOut(speed));
     }
 
     public Command in(){
-        return startEnd(()-> runIntake(ROLLER_SPEED), this::stopIntake).until(this::getBeamBreak);
+        return startEnd(()-> runIntake(5), this::stopIntake);
     }
 
     public Command out(){
-        return startEnd(()-> runIntake(-ROLLER_SPEED), this::stopIntake).withTimeout(3);
+        return startEnd(()-> runIntake(-5), this::stopIntake);
     }
 
     /*public Command spinIntake(boolean reversed){
