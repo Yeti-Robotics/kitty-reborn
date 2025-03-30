@@ -49,14 +49,20 @@ public class RobotContainer {
          );
          xboxController.start().onTrue(m_drivetrain.runOnce(m_drivetrain::seedFieldCentric));
 
-        xboxController.leftTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
-        xboxController.y().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
-        xboxController.rightBumper().whileTrue(intakeSubsystem.in());
-        xboxController.leftBumper().whileTrue(intakeSubsystem.out());
+         //Deploy Arm
+         xboxController.leftTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
+         //Arm to Handoff Position
+         xboxController.y().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
+         //Intake Note
+         xboxController.rightBumper().whileTrue(intakeSubsystem.in());
+         //Outake Note
+         xboxController.leftBumper().whileTrue(intakeSubsystem.out());
 
+         //Pivot to Home Position
         xboxController.x().onTrue(pivotSubsystem.pivotToPosition(PivotPositions.HOME));
-//        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
-
+        //Pivot to Aim Position
+        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
+        //Handoff
         xboxController.rightTrigger()
 
                 .onTrue(
@@ -65,10 +71,10 @@ public class RobotContainer {
                         .andThen(intakeSubsystem.out())
                         .alongWith(feederSubsystem.feedNote()));
 
-//        xboxController.rightTrigger()
-//                .whileTrue(flywheelSubsystem.spinShooter()
-//                        .andThen(feederSubsystem.spinFeeder()
-//                                .alongWith(flywheelSubsystem.spinShooter())));
+          xboxController.b()
+                  .whileTrue(flywheelSubsystem.spinShooter()
+                          .andThen(feederSubsystem.spinFeeder()
+                                  .alongWith(flywheelSubsystem.spinShooter())));
     }
 
 
