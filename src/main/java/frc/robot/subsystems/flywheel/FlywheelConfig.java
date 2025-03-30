@@ -1,11 +1,11 @@
-package frc.robot.subsystems.flyWheel;
+package frc.robot.subsystems.flywheel;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-public class FlyWheelConfig {
+public class FlywheelConfig {
     public static final int RIGHT_FLY_WHEEL_ID = 15;
     public static final int LEFT_FLY_WHEEL_ID = 5;
 

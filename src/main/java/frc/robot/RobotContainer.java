@@ -1,77 +1,84 @@
-// Copyright (c) FIRST and other WPILib contributors.
-
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.Constants;
-import frc.robot.constants.Intake.IntakeSubsystem;
-import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.arm.ArmPositions;
+import frc.robot.subsystems.feeder.FeederSubsystem;
+import frc.robot.subsystems.flywheel.FlywheelSubsystem;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.drivetrain.TunerConstants;
+import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
+import frc.robot.subsystems.pivot.PivotSubsystem;
+import frc.robot.subsystems.pivot.PivotPositions;
+
 import static frc.robot.Constants.MaxAngularRate;
 import static frc.robot.Constants.MaxSpeed;
 
-
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
-    private final CommandXboxController joystick = new CommandXboxController(0);
     CommandXboxController xboxController;
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+    private final FeederSubsystem feederSubsystem = new FeederSubsystem();
+    private final FlywheelSubsystem flywheelSubsystem = new FlywheelSubsystem();
 
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
+
     public RobotContainer() {
         xboxController = new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
         configureBindings();
     }
 
-
-    /**
-     * Use this method to define your trigger->command mappings. Triggers can be created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-     * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
-     */
     private void configureBindings() {
          final SwerveRequest.FieldCentric m_driveRequest = new SwerveRequest.FieldCentric()
                 .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1)
                 .withDriveRequestType(SwerveModule.DriveRequestType.OpenLoopVoltage)
                 .withSteerRequestType(SwerveModule.SteerRequestType.MotionMagicExpo);
 
+
          final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
          m_drivetrain.setDefaultCommand(
                  m_drivetrain.applyRequest(() ->
-                         m_driveRequest.withVelocityX(-joystick.getLeftY() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withVelocityY(-joystick.getLeftX() * TunerConstants.kSpeedAt12Volts.magnitude())
-                                 .withRotationalRate(-joystick.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
+                         m_driveRequest.withVelocityX(MathUtil.applyDeadband(-xboxController.getLeftY(), 0.05) * TunerConstants.kSpeedAt12Volts.magnitude())
+                                 .withVelocityY(MathUtil.applyDeadband(-xboxController.getLeftX(), 0.05) * TunerConstants.kSpeedAt12Volts.magnitude())
+                                 .withRotationalRate(-xboxController.getRightX() * TunerConstants.kSpeedAt12Volts.magnitude())
                  )
          );
-        xboxController.a().onTrue(intakeSubsystem.spinIntake(true));
-        xboxController.b().onTrue(intakeSubsystem.spinIntake(false));
-        // if true, intakes note, if false spits the note out
+         xboxController.start().onTrue(m_drivetrain.runOnce(m_drivetrain::seedFieldCentric));
+
+         //Deploy Arm
+         xboxController.leftTrigger().onTrue(armSubsystem.armToPosition(ArmPositions.DEPLOY));
+         //Arm to Handoff Position
+         xboxController.y().onTrue(armSubsystem.armToPosition(ArmPositions.HANDOFF));
+         //Intake Note
+         xboxController.rightBumper().whileTrue(intakeSubsystem.in());
+         //Outake Note
+         xboxController.leftBumper().whileTrue(intakeSubsystem.out());
+
+         //Pivot to Home Position
+        xboxController.x().onTrue(pivotSubsystem.pivotToPosition(PivotPositions.HOME));
+        //Pivot to Aim Position
+        xboxController.a().onTrue(pivotSubsystem.pivotToPosition((PivotPositions.AIM)));
+        //Handoff
+        xboxController.rightTrigger()
+
+                .onTrue(
+                        armSubsystem.armToPosition(ArmPositions.HANDOFF)
+                        .andThen(pivotSubsystem.pivotToPosition(PivotPositions.HANDOFF))
+                        .andThen(intakeSubsystem.out())
+                        .alongWith(feederSubsystem.feedNote()));
+
+          xboxController.b()
+                  .whileTrue(flywheelSubsystem.spinShooter()
+                          .andThen(feederSubsystem.spinFeeder()
+                                  .alongWith(flywheelSubsystem.spinShooter())));
     }
 
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
+
     public Command getAutonomousCommand() {
         return null;
     }

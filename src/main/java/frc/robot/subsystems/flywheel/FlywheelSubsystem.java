@@ -1,4 +1,4 @@
-package frc.robot.subsystems.flyWheel;
+package frc.robot.subsystems.flywheel;
 
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -7,18 +7,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
-import static frc.robot.subsystems.flyWheel.FlyWheelConfig.flyWheelConfigs;
+import static frc.robot.subsystems.flywheel.FlywheelConfig.flyWheelConfigs;
 
-public class FlyWheel extends SubsystemBase {
+public class FlywheelSubsystem extends SubsystemBase {
 
     private final TalonFX rightFlyWheelMotor;
     private final TalonFX leftFlyWheelMotor;
 
-    public FlyWheel() {
-        rightFlyWheelMotor = new TalonFX(FlyWheelConfig.RIGHT_FLY_WHEEL_ID, Constants.CANIVORE_BUS);
-        leftFlyWheelMotor = new TalonFX(FlyWheelConfig.LEFT_FLY_WHEEL_ID, Constants.CANIVORE_BUS);
+    public FlywheelSubsystem() {
+        rightFlyWheelMotor = new TalonFX(FlywheelConfig.RIGHT_FLY_WHEEL_ID, Constants.CANIVORE_BUS);
+        leftFlyWheelMotor = new TalonFX(FlywheelConfig.LEFT_FLY_WHEEL_ID, Constants.CANIVORE_BUS);
 
-        rightFlyWheelMotor.setControl(new Follower(FlyWheelConfig.LEFT_FLY_WHEEL_ID, false));
+        rightFlyWheelMotor.setControl(new Follower(FlywheelConfig.LEFT_FLY_WHEEL_ID, false));
 
         rightFlyWheelMotor.getConfigurator().apply(flyWheelConfigs);
         leftFlyWheelMotor.getConfigurator().apply(flyWheelConfigs);
