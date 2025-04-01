@@ -16,8 +16,8 @@ import static frc.robot.constants.Constants.CANIVORE_BUS;
 //import static frc.robot.subsystems.ElevatorConfig.CANIVORE_BUS;
 
 public class ElevatorSubsystem extends SubsystemBase {
-    private final TalonFX elevatorMotor = new TalonFX(10, CANIVORE_BUS);
-    private final CANcoder elevatorEncoder = new CANcoder(49, CANIVORE_BUS);
+    private final TalonFX elevatorMotor = new TalonFX(ElevatorConfig.ELEVATOR_MOTOR_ID, CANIVORE_BUS);
+    private final CANcoder elevatorEncoder = new CANcoder(ElevatorConfig.ELEVATOR_ENCODER_ID, CANIVORE_BUS);
 
     private final ProfiledPIDController m_controller = new ProfiledPIDController(
             ElevatorConfig.kElevatorKp,
