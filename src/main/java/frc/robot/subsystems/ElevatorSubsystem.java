@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.CANcoder;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -18,21 +19,14 @@ import static frc.robot.constants.Constants.CANIVORE_BUS;
 public class ElevatorSubsystem extends SubsystemBase {
     private final TalonFX elevatorMotor = new TalonFX(ElevatorConfig.ELEVATOR_MOTOR_ID, CANIVORE_BUS);
     private final CANcoder elevatorEncoder = new CANcoder(ElevatorConfig.ELEVATOR_ENCODER_ID, CANIVORE_BUS);
-
-    private final ProfiledPIDController m_controller = new ProfiledPIDController(
-            ElevatorConfig.kElevatorKp,
-            ElevatorConfig.kElevatorKi,
-            ElevatorConfig.kElevatorKd,
-            new TrapezoidProfile.Constraints(
-                    ElevatorConfig.kElevatorMaxVelocity,
-                    ElevatorConfig.kElevatorMaxAcceleration
-            )
-    );
+    final MotionMagicTorqueCurrentFOC motionMagic;
 
     public ElevatorSubsystem() {
         elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
 
         elevatorMotor.getConfigurator().setPosition(0); // Reset encoder position
+
+        motionMagic = new MotionMagicTorqueCurrentFOC(0);
     }
 
     public void setSpeed(double speed) {
@@ -45,12 +39,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public double getEncoderPosition() {
         double counts = elevatorMotor.getPosition().getValue();
-        return countsToMeters(counts);
+        return counts;
     }
 
     public double getEncoderVelocity() {
         double countsPerSecond = elevatorMotor.getVelocity().getValue();
-        return countsToMeters(countsPerSecond);
+        return countsPerSecond;
     }
 
     public Command elevatorToPosition(double targetPositionMeters) {
