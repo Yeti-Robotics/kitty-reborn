@@ -5,10 +5,13 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.CANcoder;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.constants.ElevatorConstants;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import frc.robot.subsystems.arm.ArmPositions;
 
 import static frc.robot.constants.Constants.CANIVORE_BUS;
 
@@ -25,8 +28,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
 
         elevatorMotor.getConfigurator().setPosition(0); // Reset encoder position
-
         motionMagic = new MotionMagicTorqueCurrentFOC(0);
+
     }
 
     public void setSpeed(double speed) {
@@ -37,22 +40,18 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorMotor.stopMotor();
     }
 
-    public double getEncoderPosition() {
-        double counts = elevatorMotor.getPosition().getValue();
+    public Angle getEncoderPosition() {
+        Angle counts = elevatorMotor.getPosition().getValue();
         return counts;
     }
 
-    public double getEncoderVelocity() {
-        double countsPerSecond = elevatorMotor.getVelocity().getValue();
+    public AngularVelocity getEncoderVelocity() {
+        AngularVelocity countsPerSecond = elevatorMotor.getVelocity().getValue();
         return countsPerSecond;
     }
 
     public Command elevatorToPosition(double targetPositionMeters) {
-        return runOnce(() -> {
-            m_controller.setGoal(targetPositionMeters);
-        }).andThen(run(() -> {
-            double output = m_controller.calculate(getEncoderPosition());
-            elevatorMotor.set(output);
-        })).finallyDo((interrupted) -> stop());
+        return run(() -> elevatorMotor.setControl(motionMagic.withPosition(targetPositionMeters)));
     }
+
 }
