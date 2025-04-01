@@ -53,10 +53,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         return countsToMeters(countsPerSecond);
     }
 
-    private double countsToMeters(double counts) {
-        return counts * (2 * Math.PI * ElevatorConfig.kElevatorSpoolRadius) / (ElevatorConfig.kElevatorGearRatio * ElevatorConfig.kElevatorEncoderResolution);
-    }
-
     public Command elevatorToPosition(double targetPositionMeters) {
         return runOnce(() -> {
             m_controller.setGoal(targetPositionMeters);
