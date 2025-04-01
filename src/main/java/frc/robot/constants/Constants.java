@@ -16,16 +16,8 @@ package frc.robot.constants;
 public final class Constants {
 //    robot cosntants
     public static final int XBOX_CONTROLLER_PORT = 0;
-    public static final String CANIVORE_BUS = "canivorebus";
+public static final String CANIVORE_BUS = "canivorebus";
     public static final String Rio_BUS = "rio";
     public static final double MaxSpeed = 0;
     public static final double MaxAngularRate  = 0;
-
-
-
-
-
-
-
-
 }
