@@ -4,18 +4,6 @@ import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.signals.*;
 
 public class ElevatorConfig {
-    /*public static final double kElevatorKp = 0.1;
-    public static final double kElevatorKi = 0.0;
-    public static final double kElevatorKd = 0.0;
-    public static final double kElevatorMaxVelocity = 0.0;
-    public static final double kElevatorMaxAcceleration = 0.0;
-
-    public static final double kElevatorGearRatio = 0;
-    public static final double kElevatorSpoolRadius = 0.;
-    public static final double kElevatorEncoderResolution = 0;
-    public static final double kElevatorMaxHeight = 2.0;
-    public static final double kElevatorMinHeight = 2.0;
-*/
     static final double P_VALUE = 0;
     static final double I_VALUE = 0;
     static final double D_VALUE = 0;

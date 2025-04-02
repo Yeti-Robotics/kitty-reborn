@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -18,6 +19,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public ElevatorSubsystem() {
         elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
+        elevatorEncoder.getConfigurator().apply(new CANcoderConfiguration());
+
 
         elevatorMotor.getConfigurator().setPosition(0); // Reset encoder position
         motionMagic = new MotionMagicTorqueCurrentFOC(0);
