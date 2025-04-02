@@ -4,7 +4,6 @@ import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.signals.*;
 
 public class ElevatorConfig {
-    //    fr elevevator
     /*public static final double kElevatorKp = 0.1;
     public static final double kElevatorKi = 0.0;
     public static final double kElevatorKd = 0.0;
