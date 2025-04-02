@@ -3,21 +3,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.CANcoder;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.constants.ElevatorConstants;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import frc.robot.subsystems.arm.ArmPositions;
 
 import static frc.robot.constants.Constants.CANIVORE_BUS;
-
-
-//import static frc.robot.ElevatorConstants.CANIVORE_BUS;
-//import static frc.robot.subsystems.ElevatorConfig.CANIVORE_BUS;
 
 public class ElevatorSubsystem extends SubsystemBase {
     private final TalonFX elevatorMotor = new TalonFX(ElevatorConfig.ELEVATOR_MOTOR_ID, CANIVORE_BUS);
@@ -41,13 +33,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public Angle getEncoderPosition() {
-        Angle counts = elevatorMotor.getPosition().getValue();
-        return counts;
+       return elevatorMotor.getPosition().getValue();
     }
 
     public AngularVelocity getEncoderVelocity() {
-        AngularVelocity countsPerSecond = elevatorMotor.getVelocity().getValue();
-        return countsPerSecond;
+        return elevatorMotor.getVelocity().getValue();
     }
 
     public Command elevatorToPosition(double targetPositionMeters) {
